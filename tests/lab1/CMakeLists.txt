@@ -5,9 +5,10 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
 
 set(SOURCE_FILES FactorialTest.cpp)
+set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 
-add_executable(jimp_exercises_lab1_tests ${SOURCE_FILES})
+add_executable(lab1_factorial_tests ${SOURCE_FILES})
 
 
-target_link_libraries(jimp_exercises_lab1_tests gtest gtest_main gmock gmock_main)
-target_link_libraries(jimp_exercises_lab1_tests lab1)
+target_link_libraries(lab1_factorial_tests ${GTEST_LIBS})
+target_link_libraries(lab1_factorial_tests lab1)
