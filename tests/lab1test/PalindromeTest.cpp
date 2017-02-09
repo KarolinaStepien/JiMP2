@@ -4,7 +4,6 @@
 
 #include <Palindrome.h>
 #include <gtest/gtest.h>
-#include <boost/format.hpp>
 
 using TestParam = std::pair<std::string, bool>;
 
@@ -16,7 +15,7 @@ TEST_P(PalindromeDataDrivenTests, PalindromeShouldReturnExpectedResult) {
   const TestParam &p = GetParam();
   auto expected = p.second;
   auto arg = p.first;
-  EXPECT_EQ(expected, is_palindrome(arg)) << boost::format("Was called is_palindrome(%1%)") % arg;
+  EXPECT_EQ(expected, is_palindrome(arg)) << "Did call is_palindrome(" << arg << ")\n";
 }
 
 std::vector<TestParam> palindromeTestData{{"", true}, {"abc", false}, {"g", true}, {"8h", false},

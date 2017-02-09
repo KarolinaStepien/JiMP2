@@ -3,7 +3,6 @@
 //
 
 #include <gtest/gtest.h>
-#include <boost/format.hpp>
 #include <Factorial.h>
 
 TEST(factorial_test, factorial_of_0_is_1) {
@@ -26,7 +25,7 @@ class FactorialDataDrivenTests : public ::testing::TestWithParam<TestParam> {
 
 TEST_P(FactorialDataDrivenTests, FactorialShouldReturnExpectedResult) {
   const TestParam &p = GetParam();
-  EXPECT_EQ(p.second, factorial(p.first)) << boost::format("Was called factorial(%1%)") % p.first;
+  EXPECT_EQ(p.second, factorial(p.first)) << "Did call factorial (" << p.first << ")\n";
 }
 
 std::vector<TestParam> positiveNumbers{{0, 1}, {1, 1}, {3, 6}, {5, 120}, {10, 3628800}, {12, 479001600}};
