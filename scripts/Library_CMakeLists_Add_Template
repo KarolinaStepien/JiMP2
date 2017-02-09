@@ -1,0 +1,19 @@
+#set($NAME = ${StringUtils.removeAndHump($PROJECT_NAME_SEPARTED_WITH_SPACES," ")})
+#set($PROJECT_LOWER = $NAME.toLowerCase())
+#set($PROJECT_CAPTILIZED = $NAME)
+#set($LIBRARY_NAME = "lib"+$PROJECT_LOWER)
+#set($H_NAME = $PROJECT_CAPTILIZED+".h")
+#set($CPP_NAME = $PROJECT_CAPTILIZED+".cpp")
+
+project($PROJECT_LOWER)
+
+set(HEDEAR_FILES $H_NAME)
+set(SOURCE_FILES $CPP_NAME)
+
+add_library($LIBRARY_NAME STATIC \${SOURCE_FILES} \${HEDEAR_FILES})
+target_include_directories($LIBRARY_NAME PUBLIC .)
+
+add_executable($PROJECT_LOWER \${SOURCE_FILES} \${HEADER_FILES} main.cpp)
+
+target_link_libraries($PROJECT_LOWER $LIBRARY_NAME)
+
