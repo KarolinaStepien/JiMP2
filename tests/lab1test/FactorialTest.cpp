@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <boost/format.hpp>
-#include <Factorial.h>
+#include <factorial/Factorial.h>
 
 TEST(factorial_test, factorial_of_0_is_1) {
   EXPECT_EQ(1, factorial(0));
