@@ -8,7 +8,8 @@ include_directories(../../lab1)
 
 set(FACTORIAL_SRC FactorialTest.cpp)
 set(REVERSE_STRING_SRC ReverseStringTest.cpp)
-set(SOURCE_FILES ${FACTORIAL_SRC} ${REVERSE_STRING_SRC})
+set(PALINDROME_SRC PalindromeTest.cpp)
+set(SOURCE_FILES ${FACTORIAL_SRC} ${REVERSE_STRING_SRC} ${PALINDROME_SRC})
 
 set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 
@@ -21,3 +22,15 @@ add_executable(lab1_reverse_string_tests ${REVERSE_STRING_SRC})
 
 target_link_libraries(lab1_reverse_string_tests ${GTEST_LIBS})
 target_link_libraries(lab1_reverse_string_tests libreversestring)
+
+add_executable(lab1_palindrome_tests ${PALINDROME_SRC})
+
+target_link_libraries(lab1_palindrome_tests ${GTEST_LIBS})
+target_link_libraries(lab1_palindrome_tests libpalindrome)
+
+add_executable(lab1_all_test ${SOURCE_FILES})
+
+target_link_libraries(lab1_palindrome_tests ${GTEST_LIBS})
+target_link_libraries(lab1_factorial_tests libfactorial)
+target_link_libraries(lab1_reverse_string_tests libreversestring)
+target_link_libraries(lab1_palindrome_tests libpalindrome)

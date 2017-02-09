@@ -2,3 +2,4 @@ project(lab1)
 
 add_subdirectory(factorial)
 add_subdirectory_if_exists(reversestring)
+add_subdirectory_if_exists(palindrome)
