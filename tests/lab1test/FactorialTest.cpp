@@ -2,11 +2,9 @@
 // Created by mwypych on 02.02.17.
 //
 
-//#include "../lib/gtest-1.8.0/googletest/include/gtest/gtest.h"
-
 #include <gtest/gtest.h>
-#include <Factorial.h>
 #include <boost/format.hpp>
+#include <Factorial.h>
 
 TEST(factorial_test, factorial_of_0_is_1) {
   EXPECT_EQ(1, factorial(0));
