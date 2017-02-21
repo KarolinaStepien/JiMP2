@@ -31,10 +31,11 @@ TEST_F(MultiplicationTableDataDrivenTests, MultiplicationTableShouldReturnExpect
                         {9, 18, 27, 36, 45, 54, 63, 72, 81, 90},
                         {10, 20, 30, 40, 50, 60, 70, 80, 90, 100}};
   MultiplicationTable(input);
-  for (int x = 0; x < 10; ++x)
+  for (int x = 0; x < 10; ++x) {
     for (int y = 0; y < 10; ++y) {
       int expected = output[x][y];
       int arg = input[x][y];
       EXPECT_EQ(expected, arg) << "element (" << x << ", " << y << ")\n";
     }
+  }
 }
