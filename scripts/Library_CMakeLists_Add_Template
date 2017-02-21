@@ -10,10 +10,10 @@ project($PROJECT_LOWER)
 set(HEDEAR_FILES $H_NAME)
 set(SOURCE_FILES $CPP_NAME)
 
-add_library($LIBRARY_NAME STATIC \${SOURCE_FILES} \${HEDEAR_FILES})
+add_library($LIBRARY_NAME STATIC \${SOURCE_FILES})
 target_include_directories($LIBRARY_NAME PUBLIC .)
 
-add_executable($PROJECT_LOWER \${SOURCE_FILES} \${HEADER_FILES} main.cpp)
+add_executable($PROJECT_LOWER \${SOURCE_FILES} main.cpp)
 
 target_link_libraries($PROJECT_LOWER $LIBRARY_NAME)
 
