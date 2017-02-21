@@ -5,6 +5,8 @@
 #include "MemLeak.h"
 #include "MemLeakTest.h"
 #include <gtest/gtest.h>
+#include <string>
+#include <sstream>
 
 MemLeakTest::MemLeakTest() {
   MemLeak::StartRecording();

@@ -8,9 +8,9 @@
 #include <new>
 #include <map>
 #include <vector>
+#include <string>
 
 class MemoryEntry {
-
  public:
   const void *memory;
   const size_t size;
@@ -26,7 +26,6 @@ class MemoryEntry {
 };
 
 class MemLeak {
-
  public:
   static MemLeak &Instance();
 //  static void Initialize();

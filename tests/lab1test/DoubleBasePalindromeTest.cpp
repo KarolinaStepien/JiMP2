@@ -3,8 +3,9 @@
 //
 #include <gtest/gtest.h>
 #include <DoubleBasePalindromes.h>
+#include <vector>
 
-using TestParam = std::pair<int, unsigned long long>;
+using TestParam = std::pair<int, uint64_t>;
 
 class DoubleBasePalindromeDataDrivenTests : public ::testing::TestWithParam<TestParam> {
 

@@ -4,6 +4,9 @@
 
 #include <ReverseString.h>
 #include <gtest/gtest.h>
+#include <string>
+#include <utility>
+#include <vector>
 
 using TestParam = std::pair<std::string, std::string>;
 

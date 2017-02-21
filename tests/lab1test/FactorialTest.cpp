@@ -4,6 +4,8 @@
 
 #include <gtest/gtest.h>
 #include <Factorial.h>
+#include <utility>
+#include <vector>
 
 TEST(factorial_test, factorial_of_0_is_1) {
   EXPECT_EQ(1, factorial(0));

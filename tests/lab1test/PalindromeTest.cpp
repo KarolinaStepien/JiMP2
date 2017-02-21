@@ -4,11 +4,13 @@
 
 #include <Palindrome.h>
 #include <gtest/gtest.h>
+#include <string>
+#include <utility>
+#include <vector>
 
 using TestParam = std::pair<std::string, bool>;
 
 class PalindromeDataDrivenTests : public ::testing::TestWithParam<TestParam> {
-
 };
 
 TEST_P(PalindromeDataDrivenTests, PalindromeShouldReturnExpectedResult) {
