@@ -1,3 +1,4 @@
 project(lab2)
 
 add_subdirectory_if_exists(array2d)
+add_subdirectory_if_exists(polybius)
