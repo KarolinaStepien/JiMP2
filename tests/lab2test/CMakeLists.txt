@@ -14,6 +14,8 @@ set(POLYBIUS_STEP1_SRC PolybiusStep1Test.cpp)
 set(POLYBIUS_STEP2_SRC PolybiusStep2Test.cpp)
 set(POLYBIUS_SRC ${POLYBIUS_STEP1_SRC} ${POLYBIUS_STEP2_SRC})
 
+set(GREATEST_PRODUCT_STEP1_SRC GreatestProduct.cpp)
+
 set(SOURCE_FILES ${ARRAY_2D_SRC} ${POLYBIUS_SRC})
 
 #set(GTEST_LIBS gtest gtest_main gmock gmock_main)
@@ -32,6 +34,8 @@ add_gtest_with_memleak_stepped(array_2d 2 3 4)
 ##  POLYBIUS          STEP 1 2
 #######################################################################
 add_gtest_with_memleak_stepped(polybius 1 2)
+
+add_gtest_with_memleak_stepped(greatest_product 1)
 
 #######################################################################
 ##  ALL TESTS

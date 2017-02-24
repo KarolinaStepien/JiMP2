@@ -7,7 +7,7 @@
 
 using TestParam = std::pair<std::string, std::string>;
 
-class PolybiusStep1Tests : public ::testing::TestWithParam<TestParam> {
+class PolybiusStep1Tests : public ::testing::TestWithParam<TestParam>, MemLeakTest {
 
 };
 
