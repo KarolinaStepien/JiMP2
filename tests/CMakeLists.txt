@@ -3,7 +3,9 @@ project(jimp_excercises_tests)
 add_subdirectory(lib/gtest-1.8.0)
 set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 
+add_subdirectory(lib/stringutility)
 add_subdirectory(lib/memleak)
+
 
 macro(add_gtest TEST_NAME_TARGET SOLUTION_LIB_DEP)
     string(TOLOWER "${TEST_NAME_TARGET}" LOWER_TEST_NAME_TARGET)
@@ -17,6 +19,7 @@ macro(add_gtest TEST_NAME_TARGET SOLUTION_LIB_DEP)
 
     target_link_libraries("${TEST_TARGET_INTERNAL}" ${GTEST_LIBS})
     target_link_libraries("${TEST_TARGET_INTERNAL}" "${SOLUTION_LIB_DEP}")
+    target_link_libraries("${TEST_TARGET_INTERNAL}" stringutility)
 endmacro(add_gtest)
 
 macro(add_gtest_with_memleak TEST_NAME_TARGET SOLUTION_LIB_DEP)

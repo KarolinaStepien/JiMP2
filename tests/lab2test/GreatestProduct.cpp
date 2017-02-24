@@ -5,8 +5,9 @@
 #include <GreatestProduct.h>
 #include <gtest/gtest.h>
 #include <MemLeakTest.h>
+#include <StringUtility.h>
 
-using TestParam = std::pair<std::pair<std::vector<int>,int>, int>;
+using TestParam = std::pair<std::pair<std::vector<int>, int>, int>;
 
 class GreatestProductOfStep1Tests : public ::testing::TestWithParam<TestParam>, MemLeakTest {
 
@@ -17,11 +18,22 @@ TEST_P(GreatestProductOfStep1Tests, PolybiusCryptShouldReturnExpectedResult) {
   int expected = p.second;
   const std::vector<int> &numbers = p.first.first;
   int N = p.first.second;
-  EXPECT_EQ(encrypted, GreatestProductOf(numbers,N)) << "Did call GreatestProductOf(" << ToString(numbers) << ", " << N << ")\n";
+  EXPECT_EQ(expected, GreatestProduct(numbers, N))
+            << "Did call GreatestProductOf(" << utility::ToString<int>(numbers) << ", " << N << ")\n";
 }
 
 std::vector<TestParam> greatest_product_test_data{
-    {{{0,1,2,3,4},2}, 12}};
+    {{{0, 1, 2, 3, 4}, 2}, 12},
+    {{{0, 1, 2, 3, 4}, 3}, 24},
+    {{{0, 1, 2, 3, 4}, 4}, 24},
+    {{{6, 6, 6}, 2}, 36},
+    {{{9,8,3,5,8,1,3,5,10},2}, 90},
+    {{{10,7,7,5,8,8},3}, 640},
+    {{{-11,8,2,9,9,8,5,-1},2}, 81},
+    {{{-11,8,2,9,-9,8,5,-1},2}, 99},
+    {{{-11,-9,-1},2}, 99},
+    {{{-11,8,2,9,-9,8,5,-1},3}, 9*8*8},
+    {{{-11,-90,-4,-5,-9,-1,-3,-1},3}, -3}};
 
 INSTANTIATE_TEST_CASE_P(GreatestProductOfStep1Tests,
                         GreatestProductOfStep1Tests,
