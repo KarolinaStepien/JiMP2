@@ -19,7 +19,7 @@ TEST_P(PolybiusStep3Tests, DefineEncryptionMapUsing) {
 }
 
 std::vector<TestParam> polybius_test_data{
-    {{"",""}, ""},
+    {{"", ""}, ""},
     {{"message",}, "32154343112215"},
     {"wiadomosc ze spacjami", "52241114343234431355154335111324113224"},
     {"abcdefghijklmnopqrstuvwxyz", "1112131415212223242425313233343541424344455152535455"},
