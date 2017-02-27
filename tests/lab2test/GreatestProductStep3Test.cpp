@@ -9,11 +9,11 @@
 
 using TestParam = std::pair<std::pair<std::vector<int>, int>, int>;
 
-class GreatestProductOfStep1Tests : public ::testing::TestWithParam<TestParam>, MemLeakTest {
+class GreatestProductOfStep3Tests : public ::testing::TestWithParam<TestParam>, MemLeakTest {
 
 };
 
-TEST_P(GreatestProductOfStep1Tests, PolybiusCryptShouldReturnExpectedResult) {
+TEST_P(GreatestProductOfStep3Tests, GreatestProductOfBothPositiveAndNegativeNumbersArbitraryNShouldReturnExpectedResult) {
   const TestParam &p = GetParam();
   int expected = p.second;
   const std::vector<int> &numbers = p.first.first;
@@ -22,21 +22,19 @@ TEST_P(GreatestProductOfStep1Tests, PolybiusCryptShouldReturnExpectedResult) {
             << "Did call GreatestProductOf(" << utility::ToString<int>(numbers) << ", " << N << ")\n";
 }
 
-std::vector<TestParam> greatest_product_test_data{
-    {{{0, 1, 2, 3, 4}, 2}, 12},
-    {{{0, 1, 2, 3, 4}, 3}, 24},
-    {{{0, 1, 2, 3, 4}, 4}, 24},
-    {{{6, 6, 6}, 2}, 36},
-    {{{9,8,3,5,8,1,3,5,10},2}, 90},
-    {{{10,7,7,5,8,8},3}, 640},
+std::vector<TestParam> greatest_product_both_negative_and_positive_test_data{
     {{{-11,8,2,9,9,8,5,-1},2}, 81},
     {{{-11,8,2,9,-9,8,5,-1},2}, 99},
     {{{-11,-9,-1},2}, 99},
     {{{-11,8,2,9,-9,8,5,-1},3}, 11*9*9},
     {{{-11,-90,-4,-5,-9,-1,-3,1},3}, 11*90},
+    {{{-17,-1},2}, 17},
+    {{{-17,3,-1},2}, 17},
+    {{{-17,3,1},2}, 3},
+    {{{-17,19,1,-1},2}, 19},
     {{{-11,-90,-4,-5,-9,-1,-3,-1},3}, -3}};
 
-INSTANTIATE_TEST_CASE_P(GreatestProductOfStep1Tests,
-                        GreatestProductOfStep1Tests,
-                        ::testing::ValuesIn(greatest_product_test_data));
+INSTANTIATE_TEST_CASE_P(GreatestProductOfStep3Tests,
+                        GreatestProductOfStep3Tests,
+                        ::testing::ValuesIn(greatest_product_both_negative_and_positive_test_data));
 

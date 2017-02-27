@@ -4,6 +4,7 @@
 
 #include <Polybius.h>
 #include <gtest/gtest.h>
+#include <MemLeakTest.h>
 
 using TestParam = std::pair<std::string, std::string>;
 
