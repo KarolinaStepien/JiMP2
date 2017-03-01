@@ -19,7 +19,12 @@ set(GREATEST_PRODUCT_STEP2_SRC GreatestProductStep2Test.cpp)
 set(GREATEST_PRODUCT_STEP3_SRC GreatestProductStep3Test.cpp)
 set(GREATEST_PRODUCT_SRC ${GREATEST_PRODUCT_STEP1_SRC} ${GREATEST_PRODUCT_STEP2_SRC} ${GREATEST_PRODUCT_STEP3_SRC})
 
-set(SOURCE_FILES ${ARRAY_2D_SRC} ${POLYBIUS_SRC} ${GREATEST_PRODUCT_SRC})
+set(SIMPLE_FORWARD_LIST_STEP1_SRC SimpleForwardListStep1Test.cpp)
+set(SIMPLE_FORWARD_LIST_STEP2_SRC SimpleForwardListStep2Test.cpp)
+set(SIMPLE_FORWARD_LIST_STEP3_SRC SimpleForwardListStep3Test.cpp)
+set(SIMPLE_FORWARD_LIST_SRC ${SIMPLE_FORWARD_LIST_STEP1_SRC} ${SIMPLE_FORWARD_LIST_STEP2_SRC} ${SIMPLE_FORWARD_LIST_STEP3_SRC})
+
+set(SOURCE_FILES ${ARRAY_2D_SRC} ${POLYBIUS_SRC} ${GREATEST_PRODUCT_SRC} ${SIMPLE_FORWARD_LIST_SRC})
 
 #set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 
@@ -43,6 +48,8 @@ add_gtest_with_memleak_stepped(polybius 1 2)
 #######################################################################
 add_gtest_with_memleak_stepped(greatest_product 1 2 3)
 
+add_gtest_with_memleak_stepped(simple_forward_list 1 2 3)
+
 #######################################################################
 ##  ALL TESTS
 #######################################################################
@@ -52,5 +59,6 @@ target_link_libraries(lab2_all_tests ${GTEST_LIBS})
 target_link_libraries(lab2_all_tests libarray2d)
 target_link_libraries(lab2_all_tests libpolybius)
 target_link_libraries(lab2_all_tests libgreatestproduct)
+target_link_libraries(lab2_all_tests libsimpleforwardlist)
 target_link_libraries(lab2_all_tests memleak)
 target_link_libraries(lab2_all_tests stringutility)

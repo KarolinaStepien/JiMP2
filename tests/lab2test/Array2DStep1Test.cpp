@@ -5,9 +5,7 @@
 #include <Array2D.h>
 #include <gtest/gtest.h>
 
-class Array2DStep1Tests : public ::testing::Test {
-
-};
+class Array2DStep1Tests : public ::testing::Test {};
 
 TEST_F(Array2DStep1Tests, Define_Array2D_FunctionOf_N_Rows_And_N_Columns_FilledUpWithNumbersFrom1ToNumberOfElements) {
   constexpr int k_rows = 5;
