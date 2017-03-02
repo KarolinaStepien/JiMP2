@@ -24,6 +24,8 @@ set(SIMPLE_FORWARD_LIST_STEP2_SRC SimpleForwardListStep2Test.cpp)
 set(SIMPLE_FORWARD_LIST_STEP3_SRC SimpleForwardListStep3Test.cpp)
 set(SIMPLE_FORWARD_LIST_SRC ${SIMPLE_FORWARD_LIST_STEP1_SRC} ${SIMPLE_FORWARD_LIST_STEP2_SRC} ${SIMPLE_FORWARD_LIST_STEP3_SRC})
 
+set(XOR_CYPHER_BREAKER_STEP1_SRC XorCypherBreakerTest.cpp)
+
 set(SOURCE_FILES ${ARRAY_2D_SRC} ${POLYBIUS_SRC} ${GREATEST_PRODUCT_SRC} ${SIMPLE_FORWARD_LIST_SRC})
 
 #set(GTEST_LIBS gtest gtest_main gmock gmock_main)
@@ -48,7 +50,7 @@ add_gtest_with_memleak_stepped(polybius 1 2)
 #######################################################################
 add_gtest_with_memleak_stepped(greatest_product 1 2 3)
 
-add_gtest_with_memleak_stepped(simple_forward_list 1 2 3)
+add_gtest(xor_cypher_breaker libxorcypherbreaker)
 
 #######################################################################
 ##  ALL TESTS
