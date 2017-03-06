@@ -1,10 +1,12 @@
 //
 // Created by mwypych on 21.02.17.
 //
-#include "MemLeak.h"
+#include <sstream>
 #include <iostream>
 #include <algorithm>
 #include <regex>
+
+#include "MemLeak.h"
 
 void *operator new(std::size_t n) {
   void *memory = malloc(n);
@@ -12,7 +14,7 @@ void *operator new(std::size_t n) {
   return memory;
 }
 
-void operator delete(void *p) throw() {
+void operator delete(void *p) noexcept {
   MemLeak::Instance().Free(p);
   free(p);
 }
@@ -23,7 +25,7 @@ void *operator new[](std::size_t n) {
   return memory;
 }
 
-void operator delete[](void *p) throw() {
+void operator delete[](void *p) noexcept {
   MemLeak::Instance().FreeArray(p);
   free(p);
 }

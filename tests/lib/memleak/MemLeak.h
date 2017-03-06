@@ -60,8 +60,8 @@ class MemLeak {
 };
 
 void *operator new(std::size_t n) throw(std::bad_alloc);
-void operator delete(void *p) throw(std::bad_alloc);
+void operator delete(void *p) noexcept;
 void *operator new[](std::size_t n) throw(std::bad_alloc);
-void operator delete[](void *p) throw(std::bad_alloc);
+void operator delete[](void *p) noexcept;
 
 #endif //JIMP_EXERCISES_MEMLEAK_H
