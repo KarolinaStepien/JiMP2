@@ -50,6 +50,11 @@ add_gtest_with_memleak_stepped(polybius 1 2)
 #######################################################################
 add_gtest_with_memleak_stepped(greatest_product 1 2 3)
 
+#######################################################################
+##  SIMPLE FORWARD LIST STEP 1 2 3
+#######################################################################
+add_gtest_with_memleak_stepped(simple_forward_list 1 2 3)
+
 add_gtest_with_memleak(xor_cypher_breaker libxorcypherbreaker)
 
 #######################################################################
