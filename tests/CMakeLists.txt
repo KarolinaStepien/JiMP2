@@ -38,6 +38,7 @@ endmacro(add_gtest_with_memleak_stepped)
 
 add_subdirectory(lab1test)
 add_subdirectory(lab2test)
+add_subdirectory(lab3test)
 
 
 
