@@ -19,8 +19,8 @@ using ::std::vector;
 using ::ccounter::Counter;
 using ::ccounter::Init;
 using ::ccounter::Inc;
-using ::ccounter::Value;
-using ::ccounter::SetValueTo;
+using ::ccounter::Counts;
+using ::ccounter::SetCountsTo;
 
 using TestParam = pair<vector<string>, map<string, int>>;
 
@@ -39,7 +39,7 @@ TEST_P(CCounterTest, DefineMethod_Init_Encode_Decode) {
   for (auto p : expected) {
     auto expected = p.second;
     auto key = p.first;
-    EXPECT_EQ(expected, Value(counter, key));
+    EXPECT_EQ(expected, Counts(counter, key));
   }
 }
 
