@@ -4,15 +4,19 @@ include_directories(${gmock_SOURCE_DIR}/include ${gmock_SOURCE_DIR})
 set(TEST_LAB_NUMBER 3)
 
 
-set(SMART_TREE_SRC SmartTreeTest.cpp)
+set(SMART_TREE_STEP1_SRC SmartTreeStep1Test.cpp)
+set(SMART_TREE_STEP2_SRC SmartTreeStep2Test.cpp)
+set(SMART_TREE_STEP3_SRC SmartTreeStep3Test.cpp)
+set(SMART_TREE_STEP4_SRC SmartTreeStep4Test.cpp)
+set(SMART_TREE_STEP5_SRC SmartTreeStep5Test.cpp)
 
-set(SOURCE_FILES ${SMART_TREE_SRC})
+set(SOURCE_FILES ${SMART_TREE_STEP1_SRC} ${SMART_TREE_STEP2_SRC} ${SMART_TREE_STEP3_SRC} ${SMART_TREE_STEP4_SRC} ${SMART_TREE_STEP5_SRC})
 
 
 #######################################################################
 ##  TESTS
 #######################################################################
-add_gtest_with_memleak(smart_tree libsmarttree)
+add_gtest_with_memleak_stepped(smart_tree 1 2 3 4 5)
 
 
 #######################################################################
