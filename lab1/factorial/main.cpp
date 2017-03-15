@@ -1,8 +1,7 @@
 //
-// Created by Admin on 2017-03-14.
+// Created by Admin on 2017-03-15.
 //
 
-#include <iostream>
 #include "Factorial.h"
 
 int main()
