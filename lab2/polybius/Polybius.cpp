@@ -1,83 +1,35 @@
 //
-// Created by Admin on 2017-03-14.
+// Created by Admin on 2017-03-10.
 //
 
 #include "Polybius.h"
 
-string PolybiusCrypt(string message)
-{
-    string new_message="";
-    transform(message.begin(), message.end(), message.begin(), ::tolower);
-    map <char, string> mapa;
-    mapa['a']="11";
-    mapa['b']="12";
-    mapa['c']="13";
-    mapa['d']="14";
-    mapa['e']="15";
-    mapa['f']="21";
-    mapa['g']="22";
-    mapa['h']="23";
-    mapa['i']="24";
-    mapa['j']="24";
-    mapa['k']="25";
-    mapa['l']="31";
-    mapa['m']="32";
-    mapa['n']="33";
-    mapa['o']="34";
-    mapa['p']="35";
-    mapa['q']="41";
-    mapa['r']="42";
-    mapa['s']="43";
-    mapa['t']="44";
-    mapa['u']="45";
-    mapa['v']="51";
-    mapa['w']="52";
-    mapa['x']="53";
-    mapa['y']="54";
-    mapa['z']="55";
 
-    for (string::iterator it=message.begin(); it!=message.end(); ++it){
-        new_message+=mapa[*it];
+string PolybiusCrypt (string message){
+    string crypt="";
+    transform(message.begin(), message.end(), message.begin(), ::tolower);
+    map <char, string> polybius = {{'a', "11"}, {'b',"12"}, {'c',"13"}, {'d',"14"}, {'e',"15"}, {'f', "21"}, {'g', "22"}, {'h', "23"},
+                                   {'i', "24"}, {'j', "24"}, {'k', "25"}, {'l', "31"}, {'m', "32"}, {'n', "33"}, {'o', "34"}, {'p', "35"},
+                                   {'q', "41"}, {'r', "42"}, {'s', "43"}, {'t', "44"}, {'u', "45"}, {'v', "51"}, {'w', "52"}, {'x', "53"},
+                                   {'y', "54"}, {'z', "55"}};
+
+    for (string::iterator it = message.begin(); it != message.end(); ++it){
+        crypt += polybius[*it];
     }
-    return new_message;
+    return crypt;
 }
 
-string PolybiusDecrypt(string crypted)
-{
-    string new_crypted="", tmp="";
-    map <string, char> mapa;
-    mapa["11"]='a';
-    mapa["12"]='b';
-    mapa["13"]='c';
-    mapa["14"]='d';
-    mapa["15"]='e';
-    mapa["21"]='f';
-    mapa["22"]='g';
-    mapa["23"]='h';
-    mapa["24"]='i';
-    mapa["24"]='j';
-    mapa["25"]='k';
-    mapa["31"]='l';
-    mapa["32"]='m';
-    mapa["33"]='n';
-    mapa["34"]='o';
-    mapa["35"]='p';
-    mapa["41"]='q';
-    mapa["42"]='r';
-    mapa["43"]='s';
-    mapa["44"]='t';
-    mapa["45"]='u';
-    mapa["51"]='v';
-    mapa["52"]='w';
-    mapa["53"]='x';
-    mapa["54"]='y';
-    mapa["55"]='z';
-
-    for (string::iterator it=crypted.begin(); it!=crypted.end(); ++it){
-        tmp=*it;
-        it++;
+string PolybiusDecrypt (string crypt){
+    string message="", tmp="";
+    map <string, char> polybius = {{"11",'a'},{"12",'b'},{"13",'c'},{"14",'d'},{"15",'e'},{"21",'f'},{"22",'g'},
+                                   {"23",'h'},{"24",'i'},{"24",'j'},{"25",'k'},{"31",'l'},{"32",'m'},{"33",'n'},
+                                   {"34",'o'},{"35",'p'},{"41",'q'},{"42",'r'},{"43",'s'},{"44",'t'},{"45",'u'},
+                                   {"51",'v'},{"52",'w'},{"53",'x'},{"54",'y'},{"55",'z'}};
+    for (string::iterator it = crypt.begin(); it != crypt.end(); ++it){
+        tmp = *it;
+        ++it;
         tmp+=*it;
-        new_crypted+=mapa[tmp];
+        message += polybius[tmp];
     }
-    return new_crypted;
+    return message;
 }

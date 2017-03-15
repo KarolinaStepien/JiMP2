@@ -1,53 +1,34 @@
 //
-// Created by Admin on 2017-03-14.
+// Created by Admin on 2017-03-10.
 //
 
 #include "Polybius.h"
 
-int main()
-{
-    //string plik_wej="", plik_wyj="";
-    int parametr;
-    /*cout << "Wpisz nazwe pliku wejsciowego: " << endl;
-    cin >> plik_wej;
-    cout << "Wpisz nazwe pliku wyjsciowego: " << endl;
-    cin >> plik_wyj;*/
-    cout << "Wpisz 1 zeby zaszyfrowac plik lub 0 zeby odszyfrowac plik" << endl;
-    cin >>  parametr;
+string PolybiusDecrypt(string message);
+string PolybiusCrypt(string crypt);
 
-    if(parametr==1){
 
-        ifstream input_file("crypt.txt"); //plik_wej
-        ofstream output_file ("wyjsciowy.txt", ios_base::in | ios_base::app); //plik_wyj
-
-        string word;
-
-        if(!input_file || !output_file)
-            cout << "Nie mozna otworzyc pliku" << endl;
-
-        while(input_file >> word)
-            //cout << PolybiusCrypt(word) << endl;
-            output_file << PolybiusCrypt(word) << endl;
-
-        input_file.close();
-        output_file.close();
+int main(){
+    cout << "Podaj nazwe pliku do odszyfrowania/zaszyfrowania: ";
+    string file1="", file2="", word="";
+    int choice;
+    cin >> file1;
+    cout << "Podaj nazwe pliku do zapisania: ";
+    cin >> file2;
+    ifstream input_file(file1);
+    ofstream output_file (file2, ios_base::in | ios_base::app);
+    if (!input_file)
+        cout >> "Nie mozna otworzyc pliku :(.";
+    if (!output_file)
+        cout >> "Nie mozna otworzyc pliku :(.";
+    cout << "Jesli chcesz zaszyfrowac wpisz 1, a jak odszyfrowac - 0: ";
+    if (choice){
+        while (input_file >> word)
+            output_file << PolybiusCrypt(word);
     }
-
-    if(parametr==0){ // + te same zakomentowane linijki z if-a wyzej
-
-        ifstream input_file("decrypt.txt"); //plik_wej
-        ofstream output_file ("wyjsciowy.txt", ios_base::in | ios_base::app); //plik_wyj
-
-        string word;
-
-        if(!input_file || !output_file)
-            cout << "Nie mozna otworzyc pliku" << endl;
-
-        while(input_file >> word)
-            output_file << PolybiusDecrypt(word) << endl;
-
-        input_file.close();
-        output_file.close();
+    else{
+        while (input_file >> word)
+            output_file << PolybiusDecrypt (word);
     }
     return 0;
 }
