@@ -18,6 +18,5 @@ int GreatestProduct(const vector <int> &numbers, int k)
             max1 = tmp;
         }
     }
-
     return max1*max2;
 }
