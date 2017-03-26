@@ -3,8 +3,11 @@
 //
 
 
-#include <gtest/gtest.h>
+#include <string>
+#include <vector>
+#include <map>
 #include <regex>
+#include <gtest/gtest.h>
 #include <MemLeakTest.h>
 #include <StringUtility.h>
 #include <SimpleJson.h>
