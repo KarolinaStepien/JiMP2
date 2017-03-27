@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <memory>
+#include <vector>
 #include <algorithm>
 #include <MemLeakTest.h>
 #include <MemoryChunk.h>
@@ -12,9 +13,8 @@ using ::memorychunk::MemoryChunk;
 using ::std::make_unique;
 using ::std::move;
 using ::std::fill;
-using ::std::tuple;
-using ::std::pair;
 using ::std::swap;
+using ::std::vector;
 
 class MemoryChunkTests : public ::testing::Test, MemLeakTest {
 };
@@ -176,4 +176,28 @@ TEST_F(MemoryChunkTests, IsAbleToSwapChunks) {
     fill(chunk2.MemoryAt(0), chunk2.MemoryAt(767) + 1, 41);
     EXPECT_EQ(41, *chunk2.MemoryAt(46));
   }
+}
+
+TEST_F(MemoryChunkTests, IsAbleEmplaceChunksIntoVector) {
+  vector <MemoryChunk> chunks;
+  chunks.emplace_back(4096);
+  chunks.emplace_back(256);
+  MemoryChunk &chunk = chunks[0];
+  MemoryChunk &chunk2 = chunks[1];
+
+  int8_t *ptr = chunk.MemoryAt(0);
+  int8_t *ptr2 = chunk2.MemoryAt(0);
+  swap(chunk, chunk2);
+
+  EXPECT_EQ(256, chunks[0].ChunkSize());
+  EXPECT_EQ(4096, chunks[1].ChunkSize());
+
+  EXPECT_EQ(ptr2, chunk.MemoryAt(0));
+  EXPECT_EQ(ptr, chunk2.MemoryAt(0));
+
+  fill(chunk.MemoryAt(0), chunk.MemoryAt(255) + 1, 63);
+  EXPECT_EQ(63, *chunk.MemoryAt(44));
+
+  fill(chunk2.MemoryAt(0), chunk2.MemoryAt(767) + 1, 41);
+  EXPECT_EQ(41, *chunk2.MemoryAt(46));
 }
