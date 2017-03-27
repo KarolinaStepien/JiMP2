@@ -36,6 +36,14 @@ std::string ToString(const std::vector<T> &v) {
   return ss.str();
 }
 
+template<typename T>
+T FromString(const std::string &value) {
+  T v{};
+  std::istringstream ss(value);
+  ss >> v;
+  return v;
+}
+
 
 };
 
