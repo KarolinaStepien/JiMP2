@@ -3,8 +3,11 @@
 //
 
 
-#include <gtest/gtest.h>
+#include <string>
+#include <vector>
+#include <map>
 #include <regex>
+#include <gtest/gtest.h>
 #include <MemLeakTest.h>
 #include <StringUtility.h>
 #include <SimpleJson.h>
@@ -22,6 +25,9 @@ using TestArgument = JsonValue;
 using TestExpected = std::string;
 using TestParam = std::pair<TestArgument, TestExpected>;
 
+using TrickyTestArgument = std::string;
+using TrickyTestParam = std::pair<TrickyTestArgument, TestExpected>;
+
 class SimpleJsonTestTests : public ::testing::TestWithParam<TestParam>, MemLeakTest {
 };
 
@@ -38,8 +44,8 @@ TEST_F(SimpleJsonTestTests, CreationOfJsonValues) {
   EXPECT_EQ("\"abc\"", str_value.ToString());
   JsonValue int_array_value{vector<JsonValue>{{14}, {1003}, {-56}}};
   EXPECT_EQ("[14, 1003, -56]", int_array_value.ToString());
-  JsonValue
-      simple_object_value{map<string, JsonValue>{{"name", {"Maciej"s}}, {"age", {44}}, {"account_balance", {-107.89}}}};
+  map<string, JsonValue> object{{"name", {"Maciej"s}}, {"age", {44}}, {"account_balance", {-107.89}}};
+  JsonValue simple_object_value{object};
   string obj_str = simple_object_value.ToString();
   EXPECT_NE(string::npos, obj_str.find("\"account_balance\": -107.89"));
   EXPECT_NE(string::npos, obj_str.find("\"age\": 44"));
@@ -47,36 +53,6 @@ TEST_F(SimpleJsonTestTests, CreationOfJsonValues) {
 EXPECT_TRUE(regex_match(obj_str, regex{R"(\{"\w+": ["\w\.-]+, "\w+": ["\w\.-]+, "\w+": ["\w\.-]+\})"}));
 EXPECT_FALSE(regex_match(obj_str, regex{"-107.89(0)+"}));
 }
-
-TEST_P(SimpleJsonTestTests, CreationOfTrickyJsonStringValues) {
-  JsonValue str_value{0};
-  string expected;
-  std::bind(GetParam(), str_value, expected);
-  EXPECT_EQ(expected, str_value.ToString());
-}
-
-TEST_P(SimpleJsonTestTests, CreationOfTrickyJsonObjectsWithTrickyNameValues) {
-  JsonValue str_value{0};
-  string expected_str;
-  std::bind(GetParam(), str_value, expected_str);
-  JsonValue obj_value{{str_value.ToString(), JsonValue{10}}};
-  auto expected = "{" + expected_str + ": 10}";
-  EXPECT_EQ(expected, obj_value.ToString());
-}
-
-std::vector<TestParam> trickyJsonStringTestData
-    {{JsonValue {R"("abc")"}, R"("\"abc\"")"},
-     {JsonValue {R"(efg"hjk")"}, R"(efg\"hjk\")"},
-     {JsonValue {R"(\"abc\")"}, R"(\"abc\")"},
-     {JsonValue {R"(\\"ghh\")"}, R"(\\\"ghh\")"},
-     {JsonValue {R"(\\\"klmnopr\\\")"}, R"(\\\"klmnopr\\\")"},
-     {JsonValue {R"(\\\\\\\"http:\\\\\\\"klmno)"}, R"("\"abc\"")"},
-     {JsonValue {R"(\\\\\\"http:\\\\\\"klmno)"}, R"("\"abc\"")"}
-    };
-
-INSTANTIATE_TEST_CASE_P(SimpleJsonTestTestsFixture,
-                        SimpleJsonTestTests,
-                        ::testing::ValuesIn(trickyJsonStringTestData));
 
 TEST_P(SimpleJsonTestTests, GetValueByNameReturnsSubValueInCaseOfObjectOrNullptrOtherwise) {
   JsonValue int_value{17};
@@ -95,7 +71,44 @@ TEST_P(SimpleJsonTestTests, GetValueByNameReturnsSubValueInCaseOfObjectOrNullptr
                                                         {"age", {44}},
                                                         {"account_balance", {-107.89}}}};
   EXPECT_FALSE(simple_object_value.ValueByName("whatever"));
-  EXPECT_EQ("Maciej", simple_object_value.ValueByName("name")->ToString());
+  EXPECT_EQ("\"Maciej\"", simple_object_value.ValueByName("name")->ToString());
   EXPECT_EQ("44", simple_object_value.ValueByName("age")->ToString());
   EXPECT_EQ("-107.89", simple_object_value.ValueByName("account_balance")->ToString());
 }
+
+class TrickySimpleJsonTestTests : public ::testing::TestWithParam<TrickyTestParam>, MemLeakTest {
+};
+
+TEST_P(TrickySimpleJsonTestTests, CreationOfTrickyJsonStringValues) {
+  string str_value;
+  string expected;
+  std::tie(str_value, expected) = GetParam();
+  EXPECT_EQ(expected, JsonValue{str_value}.ToString());
+}
+
+TEST_P(TrickySimpleJsonTestTests, CreationOfTrickyJsonObjectsWithTrickyNameValues) {
+  string str_value;
+  string expected_str;
+  std::tie(str_value, expected_str) = GetParam();
+  map<string, JsonValue> obj{{str_value, JsonValue{10}}};
+  JsonValue obj_value{obj};
+  auto expected = "{" + expected_str + ": 10}";
+  EXPECT_EQ(expected, obj_value.ToString());
+}
+
+std::vector<TrickyTestParam> trickyJsonStringTestData
+    {{R"("abc")"s, R"("\"abc\"")"s},
+     {R"(efg"hjk")"s, R"("efg\"hjk\"")"s},
+     {R"(\"abc\")"s, R"("\\\"abc\\\"")"s},
+     {R"(\\"ghh\")"s, R"("\\\\\"ghh\\\"")"s},
+     {R"(\\\"klmnopr\\\")"s, R"("\\\\\\\"klmnopr\\\\\\\"")"s},
+     {R"(\\\\\\\"http:\\\\\\\"klmno)"s, R"("\\\\\\\\\\\\\\\"http:\\\\\\\\\\\\\\\"klmno")"s},
+     {R"(\\\\\\"http:\\\\\\"klmno)"s, R"("\\\\\\\\\\\\\"http:\\\\\\\\\\\\\"klmno")"s}
+    };
+
+INSTANTIATE_TEST_CASE_P(TrickySimpleJsonTestTestsFixture,
+                        TrickySimpleJsonTestTests,
+                        ::testing::ValuesIn(trickyJsonStringTestData));
+
+
+
