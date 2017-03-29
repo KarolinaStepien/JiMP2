@@ -1,0 +1,8 @@
+//
+// Created by Admin on 2017-03-29.
+//
+
+#ifndef JIMP_EXERCISES_SIMPLEJSON_H
+#define JIMP_EXERCISES_SIMPLEJSON_H
+
+#endif //JIMP_EXERCISES_SIMPLEJSON_H
