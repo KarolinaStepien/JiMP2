@@ -1,12 +1,13 @@
 //
-// Created by Admin on 2017-03-14.
+// Created by Admin on 2017-03-30.
 //
 
 #include "GreatestProduct.h"
 
 int GreatestProduct(const vector <int> &numbers, int k)
 {
-    int max1=numbers[0], max2=numbers[0], tmp;
+    //ustawiam max1 i max2 na najmniejsze mozliwe inty #include <limits>
+    int max1 = numeric_limits<int>::min(), max2=numeric_limits<int>::min(), tmp;
     for(int v : numbers)
     {
         if(v>max1){
@@ -18,5 +19,7 @@ int GreatestProduct(const vector <int> &numbers, int k)
             max1 = tmp;
         }
     }
+    cout << max1 << max2 << endl;
+    cout << max1*max2 << endl;
     return max1*max2;
 }
