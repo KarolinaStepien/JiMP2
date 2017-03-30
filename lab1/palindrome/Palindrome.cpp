@@ -8,6 +8,10 @@ bool is_palindrome(string str)
 {
     int i=0;
     long length=str.length();
+    if(str.length()==0) {
+        cout << "Palindrome! <3" << endl << endl;
+        return true;
+    }
     while(i<str.length()){
         if(str[i]==str[length-1]){
             if(i==str.length()-1){
