@@ -8,6 +8,7 @@ set(TEST_LAB_NUMBER 5)
 #######################################################################
 add_gtest_with_memleak(memory_chunk libmemorychunk)
 add_gtest_with_memleak(text_pool libtextpool)
+add_gtest_with_memleak(matrix libmatrix)
 
 
 #######################################################################
@@ -18,5 +19,6 @@ add_executable(lab5_all_tests ${SOURCE_FILES})
 target_link_libraries(lab5_all_tests ${GTEST_LIBS})
 target_link_libraries(lab5_all_tests libmemorychunk)
 target_link_libraries(lab5_all_tests libtextpool)
+target_link_libraries(lab5_all_tests libmatrix)
 target_link_libraries(lab5_all_tests memleak)
 target_link_libraries(lab5_all_tests stringutility)
