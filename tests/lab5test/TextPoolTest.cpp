@@ -5,6 +5,7 @@
 
 #include <gtest/gtest.h>
 #include <memory>
+#include <type_traits>
 #include <experimental/string_view>
 #include <MemLeakTest.h>
 #include <TextPool.h>
@@ -72,8 +73,8 @@ TEST_F(TextPoolTests, IsAbleToMoveChunks) {
   EXPECT_EQ(6, moved_pool.StoredStringCount());
 }
 
-TEST_F(TextPoolTests, IsNotAbleToCopyConstructChunks) {
-  EXPECT_FALSE(false);
+TEST_F(TextPoolTests, IsNotAbleToCopyConstructPool) {
+  EXPECT_FALSE(std::is_copy_constructible<TextPool>::value);
 }
 
 TEST_F(TextPoolTests, IsAbleToCopyMoveChunks) {
@@ -86,8 +87,8 @@ TEST_F(TextPoolTests, IsAbleToCopyMoveChunks) {
   EXPECT_EQ(1, pool.StoredStringCount());
 }
 
-TEST_F(TextPoolTests, IsNotAbleToCopyAssignChunks) {
-  EXPECT_FALSE(false);
+TEST_F(TextPoolTests, IsNotAbleToCopyAssignPool) {
+  EXPECT_FALSE(std::is_copy_assignable<TextPool>::value);
 }
 
 TEST_F(TextPoolTests, IsSelfMoveAssignableAware) {
