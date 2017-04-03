@@ -5,7 +5,10 @@
 #include "Geometry.h"
 
 // POINT
-Point::Point():x_(0),y_(0){}
+Point::Point()/*:x_(0),y_(0)*/{
+    x_=0;
+    y_=0;
+}
 
 Point::Point(double x, double y){
     x_ = x;
