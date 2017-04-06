@@ -51,6 +51,33 @@ Matrix::Matrix(const Matrix &matrix){
     }
     tab = new_tab;
 }
+//operator przypisania
+Matrix & Matrix::operator=(const Matrix& matrix) {
+    if (this == &matrix) {
+        return *this;
+    }
+    for (int i=0; i<this->rows; i++)
+    {
+        delete [] tab [i];
+    }
+    delete [] tab;
+
+    this->rows = matrix.rows;
+    this->columns = matrix.columns;
+    complex<double> **new_tab = new complex<double> *[this->rows];
+    for (int i=0; i< this->rows; i++)
+        new_tab[i]=new complex<double> [this->columns];
+
+    for (int i=0; i<this->rows; i++)
+    {
+        for (int j=0;j<this->columns; j++)
+        {
+            new_tab[i][j]=matrix.tab[i][j];
+        }
+    }
+    tab = new_tab;
+
+}
 //funkcja tworzaca macierz
 void Matrix::Create_Matrix() {
     string nana;
@@ -156,71 +183,37 @@ Matrix Matrix::Multiplication(const Matrix &m2) const{
 }
 //funkcja potegujaca macierze
 Matrix Matrix::Exponentation(int p){
-    cout << "alealeej";
     Matrix power(this->rows, this->columns);
-    /*Matrix local_this(this->rows, this->columns);
-    for(int a=0; a<this->rows;a++){
-        for(int b=0;b<this->columns;b++){
-            local_this.tab[a][b]=this->tab[a][b];
-        }
-    }
-    const Matrix helper(this->rows, this->columns);
-    for(int a=0; a<this->rows;a++){
-        for(int b=0;b<this->columns;b++){
-            helper.tab[a][b]=this->tab[a][b];
-        }
-    }*/
-
-    if(this->rows==this->columns){
+    if(this->rows==this->columns) {
         /*power.tab = new complex<double> *[this->rows];
         for(int i=0;i<this->rows;i++) {
             power.tab[i] = new complex<double>[this->columns];
         }*/
-        cout << "nanana";
-        if(p==0){
-            cout << "lalala";
+        if (p == 0) {
             for (int j = 0; j < this->rows; j++) {
                 for (int k = 0; k < this->columns; k++) {
-                    if(j==k){
-                        power.tab[j][k]=1;
-                    }
-                    else{
-                        power.tab[j][k]=0;
+                    if (j == k) {
+                        power.tab[j][k] = 1;
+                    } else {
+                        power.tab[j][k] = 0;
                     }
                 }
             }
-            return power;
-        }
-        else{
-            cout << "pupupupu";
+        } else {
             Matrix local_this(*this);
-            //local_this.Print_Matrix();
             Matrix helper(*this);
-            //helper.Print_Matrix();
-            while(p>1){
-                cout << "okokokok";
+            while (p > 1) {
                 local_this = local_this.Multiplication(helper);
-                local_this.Print_Matrix();
                 p--;
             }
-            cout << "bebebe";
-            return local_this;
-            //power = local_this;
+            power = local_this;
         }
-        /*for (int i=0;i<this->rows;i++) {
-            for (int j = 0; j < this->columns; j++) {
-                for (int k = 0; k < this->columns; k++) {
-                    power.tab[i][j] += this->tab[i][k] * this->tab[k][j];
-                }
-                cout << power.tab[i][j] << " ";
-            }
-            cout<<endl;
-        }*/
+
     }
     else{
         cout << "Macierz ma niepoprawne wymiary :(";
     }
-    //return power;
+    return power;
 }
 
 

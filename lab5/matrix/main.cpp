@@ -5,7 +5,7 @@
 #include "Matrix.h"
 
 int main() {
-    int p=0; //power
+    int p=3; //power
     Matrix m1,m2, help;
     m1.Create_Matrix();
     cout << "Oto Twoja macierz :) " << endl;

@@ -16,14 +16,12 @@ public:
 
     //1. konstruktor kopiujący
     Matrix(const Matrix &matrix);
-
-    /*//2. konstruktor przenoszący
-    Matrix(Matrix &&matrix);
+    //2. konstruktor przenoszący
+    //Matrix(Matrix &&matrix);
     //3. operator przypisania kopiujący
     Matrix &operator=(const Matrix &matrix);
     //4. operator przypisania przenoszący
-    Matrix &operator=(Matrix &&matrix);*/
-
+    //Matrix &operator=(Matrix &&matrix);
     //5. Destruktor
     ~Matrix();
 
