@@ -1,4 +1,4 @@
-/*//
+//
 // Created by Admin on 2017-04-01.
 //
 
@@ -6,6 +6,7 @@
 #define JIMP_EXERCISES_MATRIX_H
 
 #include <iostream>
+#include <complex>
 using namespace std;
 
 class Matrix {
@@ -15,32 +16,54 @@ public:
 
     //1. konstruktor kopiujący
     Matrix(const Matrix &matrix);
+
     /*//2. konstruktor przenoszący
     Matrix(Matrix &&matrix);
     //3. operator przypisania kopiujący
     Matrix &operator=(const Matrix &matrix);
     //4. operator przypisania przenoszący
     Matrix &operator=(Matrix &&matrix);*/
+
     //5. Destruktor
     ~Matrix();
 
-    Matrix Create_Matrix();
+    void Create_Matrix();
     void Print_Matrix();
-    Matrix Add(Matrix &m2);
-    Matrix Multiply(Matrix &m2);
+    Matrix Addition(const Matrix &m2) const;
+    Matrix Subtraction(const Matrix &m2) const;
+    Matrix Multiplication(const Matrix &m2) const;
+    Matrix Exponentation(int p);
 private:
     int columns;
     int rows;
-    int *valueptr;
+    complex<double> **tab;
 };
 
-#endif //JIMP_EXERCISES_MATRIX_H*/
+#endif //JIMP_EXERCISES_MATRIX_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 // Created by zosia on 01.04.17.
 //
 
-#ifndef JIMP_EXERCISES_MATRIX_H
+/*#ifndef JIMP_EXERCISES_MATRIX_H
 #define JIMP_EXERCISES_MATRIX_H
 #include <cstdlib>
 #include <string>
@@ -66,5 +89,4 @@ public:
 };
 
 
-#endif //JIMP_EXERCISES_MATRIX_H
-
+#endif //JIMP_EXERCISES_MATRIX_H*/

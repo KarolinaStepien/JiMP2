@@ -1,25 +1,53 @@
-/*//
+//
 // Created by Admin on 2017-04-01.
 //
 
 #include "Matrix.h"
 
 int main() {
-    Matrix m1;
-    Matrix m2;
-    m1.Matrix::Create_Matrix();
-    m2.Matrix::Create_Matrix();
-    m1.Matrix::Print_Matrix();
-    m2.Matrix::Print_Matrix();
-    //m1.Matrix::Add(m2);
-    m2.Matrix::Multiply(m2);
+    int p=0; //power
+    Matrix m1,m2, help;
+    m1.Create_Matrix();
+    cout << "Oto Twoja macierz :) " << endl;
+    m1.Print_Matrix();
+//    m2.Create_Matrix();
+//    cout << "Oto Twoja macierz :) " << endl;
+//    m2.Print_Matrix();
+    cout << "Oto Twoja macierz potęgi :)" << endl;
+    m1.Exponentation(p).Print_Matrix();
+//    cout << "Oto Twoja macierz iloczynu :)" << endl;
+//    m1.Multiplication(m2).Print_Matrix();
+//    cout << "Oto Twoja macierz różnicy :)" << endl;
+//    m1.Subtraction(m2).Print_Matrix();
+//    cout << "Oto Twoja macierz sumy :)" << endl;
+//    m1.Addition(m2).Print_Matrix();
+
     return 0;
-}*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 // Created by zosia on 03.04.17.
 //
-#include "Matrix.h"
+/*#include "Matrix.h"
 
 
 int main(){
@@ -27,4 +55,4 @@ int main(){
     Matrix m(str);
     m.Print();
     return 0;
-}
+}*/

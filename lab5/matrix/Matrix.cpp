@@ -1,57 +1,108 @@
-/*//
+//
 // Created by Admin on 2017-04-01.
 //
 
 #include "Matrix.h"
 
-Matrix::Matrix():rows(0),columns(0),valueptr(NULL) {}
-Matrix::Matrix(int rows_, int columns_){
-    rows = rows_;
-    columns = columns_;
-    //valueptr = NULL;
+//stod
+complex<double> funkcja(string value_s) {
+    string real = value_s.substr(0,value_s.find('i'));
+    string imaginary = value_s.substr(value_s.find('i')+1,value_s.length());
+    double r = stod(real);
+    double i = stod(imaginary);
+    complex<double> c;
+    c.real(r);
+    c.imag(i);
+    return c;
 }
-/*
-Matrix::~Matrix(){
-    if(valueptr!=NULL) {
-        delete[]valueptr;
-        valueptr=NULL;
+//konstruktor bezparametrowy
+Matrix::Matrix():rows(0),columns(0),tab(NULL) {}
+//konstruktor parametrowy
+Matrix::Matrix(int rows_, int columns_){
+    this->rows = rows_;
+    this->columns = columns_;
+    //tab = NULL;
+    this->tab = new complex<double>*[rows_];
+    for (int i=0; i<rows_; i++){
+        this->tab[i] = new complex<double>[columns_];
     }
 }
+//destruktor
+Matrix::~Matrix(){
+    for (int i=0; i<rows; i++) {
+        delete [] tab [i];
+    }
+    delete[] tab;
+}
+//konstruktor kopiujacy
 Matrix::Matrix(const Matrix &matrix){
     this->rows = matrix.rows;
     this->columns = matrix.columns;
-    this->valueptr = new int [matrix.rows*matrix.columns];
-    for(int i=0;i<this->rows*this->columns;i++){
-        this->valueptr[i] = matrix.valueptr[i];
+    complex<double> **new_tab = new complex<double> *[this->rows];
+    for (int i=0; i<this->rows; i++){
+        new_tab[i] = new complex<double>[this->columns];
     }
+    for (int i=0; i<this->rows; i++)
+    {
+        for (int j=0;j<this->columns; j++)
+        {
+            new_tab[i][j]=matrix.tab[i][j];
+        }
+    }
+    tab = new_tab;
 }
-Matrix Matrix::Create_Matrix() {
+//funkcja tworzaca macierz
+void Matrix::Create_Matrix() {
+    string nana;
     int columns;
     int rows;
-    cin >> columns;
+    cout << "Podaj ilosc wierszy macierzy: " << endl;
     cin >> rows;
-    this->valueptr = new int[rows*columns];
-    this->columns = columns;
+    cout << "Podaj ilosc kolumn macierzy: " << endl;
+    cin >> columns;
     this->rows = rows;
-    for (int i = 0; i<rows*columns; i++) {
-            cin >> this->valueptr[i];
+    this->columns = columns;
+
+    //alokacja pamieci
+    this->tab = new complex<double> *[rows];
+    for(int i=0;i<rows;i++){
+        this->tab[i] = new complex<double> [columns];
     }
-    return *this;
+
+    //wypelnianie tablicy
+    cout << "Podaj elementy macierzy: " << endl;
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<columns;j++){
+            //cin >> this->tab[i][j];
+            cin >> nana;
+            this->tab[i][j] = funkcja(nana);
+        }
+    }
 }
+//funkcja printujaca macierz
 void Matrix::Print_Matrix() {
-    for (int i = 0; i<rows*columns; i++) {
-            cout << this->valueptr[i];
-            cout<<endl;
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<columns;j++) {
+            cout << this->tab[i][j]<<" ";
+        }
+        cout<<endl;
     }
+    cout<<endl;
 }
-Matrix Matrix::Add(Matrix &m2){
-    Matrix sum;
+//funkcja dodajaca macierze
+Matrix Matrix::Addition(const Matrix &m2) const{
+    Matrix sum(this->rows, this->columns);
     if(this->rows==m2.rows  && this->columns==m2.columns){
-        sum.valueptr = new int[this->rows*this->columns];
-        for (int i = 0; i<rows*columns; i++){
-            sum.valueptr[i]=this->valueptr[i]+m2.valueptr[i];
-            cout<<sum.valueptr[i];
-            if (i%(columns-1)==0) cout<<endl;
+        /*sum.columns=this->columns;
+        sum.rows=this->rows;
+        sum.tab = new complex<double> *[sum.rows];
+        for(int i=0;i<sum.rows;i++) {
+            sum.tab[i] = new complex<double>[sum.columns];
+        }*/
+        for(int i=0;i<sum.rows;i++) {
+            for(int j=0;j<sum.columns;j++){
+                sum.tab[i][j]=this->tab[i][j]+m2.tab[i][j];
+            }
         }
     }
     else{
@@ -59,18 +110,42 @@ Matrix Matrix::Add(Matrix &m2){
     }
     return sum;
 }
-Matrix Matrix::Multiply(Matrix &m2){
-    Matrix product;
+//funkcja odejmujaca macierze
+Matrix Matrix::Subtraction(const Matrix &m2) const{
+    Matrix sub(this->rows, this->columns);
+    if(this->rows==m2.rows  && this->columns==m2.columns){
+        /*sub.columns=this->columns;
+        sub.rows=this->rows;
+        sub.tab = new complex<double> *[sub.rows];
+        for(int i=0;i<sub.rows;i++) {
+            sub.tab[i] = new complex<double>[sub.columns];
+        }*/
+        for(int i=0;i<sub.rows;i++) {
+            for(int j=0;j<sub.columns;j++){
+                sub.tab[i][j]=this->tab[i][j]-m2.tab[i][j];
+            }
+        }
+    }
+    else{
+        cout << "Macierz ma niepoprawne wymiary :(";
+    }
+    return sub;
+}
+//funkcja mnozaca macierze
+Matrix Matrix::Multiplication(const Matrix &m2) const{
+    Matrix product(this->rows, m2.columns);
     if(this->rows==m2.columns  && this->columns==m2.rows){
-        product.valueptr = new int[this->rows*m2.columns];
-        for(int i=0;i<this->rows;i++){
-            for (int j=0;j<m2.columns;j++){
-                int element=0;
-                for(int k=0;k<m2.rows;k++){
-                    element+=this->valueptr[i*this->columns+k]*m2.valueptr[k*m2.columns+j];
+        /*product.rows=this->rows;
+        product.columns=m2.columns;
+        product.tab = new complex<double> *[product.rows];
+        for(int i=0;i<this->rows;i++) {
+            product.tab[i] = new complex<double>[product.columns];
+        }*/
+        for (int i=0;i<this->rows;i++) {
+            for (int j = 0; j < m2.columns; j++) {
+                for (int k = 0; k < this->columns; k++) {
+                    product.tab[i][j] += this->tab[i][k] * m2.tab[k][j];
                 }
-                product.valueptr[i*product.columns+j] = element;
-                cout << element;
             }
         }
     }
@@ -78,13 +153,94 @@ Matrix Matrix::Multiply(Matrix &m2){
         cout << "Macierz ma niepoprawne wymiary :(";
     }
     return product;
-}*/
+}
+//funkcja potegujaca macierze
+Matrix Matrix::Exponentation(int p){
+    cout << "alealeej";
+    Matrix power(this->rows, this->columns);
+    /*Matrix local_this(this->rows, this->columns);
+    for(int a=0; a<this->rows;a++){
+        for(int b=0;b<this->columns;b++){
+            local_this.tab[a][b]=this->tab[a][b];
+        }
+    }
+    const Matrix helper(this->rows, this->columns);
+    for(int a=0; a<this->rows;a++){
+        for(int b=0;b<this->columns;b++){
+            helper.tab[a][b]=this->tab[a][b];
+        }
+    }*/
+
+    if(this->rows==this->columns){
+        /*power.tab = new complex<double> *[this->rows];
+        for(int i=0;i<this->rows;i++) {
+            power.tab[i] = new complex<double>[this->columns];
+        }*/
+        cout << "nanana";
+        if(p==0){
+            cout << "lalala";
+            for (int j = 0; j < this->rows; j++) {
+                for (int k = 0; k < this->columns; k++) {
+                    if(j==k){
+                        power.tab[j][k]=1;
+                    }
+                    else{
+                        power.tab[j][k]=0;
+                    }
+                }
+            }
+            return power;
+        }
+        else{
+            cout << "pupupupu";
+            Matrix local_this(*this);
+            //local_this.Print_Matrix();
+            Matrix helper(*this);
+            //helper.Print_Matrix();
+            while(p>1){
+                cout << "okokokok";
+                local_this = local_this.Multiplication(helper);
+                local_this.Print_Matrix();
+                p--;
+            }
+            cout << "bebebe";
+            return local_this;
+            //power = local_this;
+        }
+        /*for (int i=0;i<this->rows;i++) {
+            for (int j = 0; j < this->columns; j++) {
+                for (int k = 0; k < this->columns; k++) {
+                    power.tab[i][j] += this->tab[i][k] * this->tab[k][j];
+                }
+                cout << power.tab[i][j] << " ";
+            }
+            cout<<endl;
+        }*/
+    }
+    else{
+        cout << "Macierz ma niepoprawne wymiary :(";
+    }
+    //return power;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //
 // Created by zosia on 01.04.17.
 //
 
-#include <complex>
+/*#include <complex>
 #include "Matrix.h"
 
 
@@ -196,4 +352,4 @@ void Matrix::Print() {
         }
     }
 
-}
+}*/
