@@ -3,12 +3,14 @@
 //
 #include <gtest/gtest.h>
 #include <memory>
+#include <set>
 #include <MemLeakTest.h>
 #include "WordCounter.h"
 
 using ::datastructures::WordCounter;
 using ::datastructures::Counts;
 using ::datastructures::Word;
+using ::std::set;
 
 
 class WordCounterTests : public ::testing::Test, MemLeakTest {
@@ -46,4 +48,12 @@ TEST_F(WordCounterTests, IsAbleToQueryNotPreviouslyStoredWord) {
   EXPECT_EQ(0, counter.TotalWords());
 }
 
+TEST_F(WordCounterTests, IsAbleListWords) {
+  WordCounter counter {Word("a"), Word("p"), Word("a"), Word("a"), Word("hi"), Word("voltage")};
+  set<Word> expected_words {Word("a"),Word("hi"), Word("voltage"), Word("p")};
+  set<int> ii {1, 56, 3,4};
+  set<int> ij {1, 56,4,3};
+  EXPECT_EQ(ii,ij);
+  EXPECT_EQ(expected_words, counter.Words());
+}
 
