@@ -6,9 +6,14 @@ set(TEST_LAB_NUMBER 7)
 #######################################################################
 ##  TESTS
 #######################################################################
-add_gtest_with_memleak(array_fill libarrayfill)
+add_gtest_with_memleak(array_fill_uniform libarrayfill)
+add_gtest_with_memleak(array_fill_incremental libarrayfill)
+add_gtest_with_memleak(array_fill_squared libarrayfill)
+add_gtest_with_memleak(array_fill_random libarrayfill)
 add_gtest_with_memleak(comparable libcomparable)
 add_gtest_with_memleak(iterable libiterable)
+add_gtest_with_memleak(student_repository_query libstudentrepositoryqueries)
+add_gtest_with_memleak(student_repository_query_by_first_name libstudentrepositoryqueries)
 
 
 #######################################################################
