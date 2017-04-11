@@ -2,7 +2,7 @@
 // Created by Admin on 2017-03-16.
 //
 
-#include "minimaltimedifference.h"
+#include "MinimalTimeDifference.h"
 
 int main()
 {
