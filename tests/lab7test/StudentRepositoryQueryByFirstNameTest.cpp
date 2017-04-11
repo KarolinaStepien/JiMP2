@@ -24,6 +24,6 @@ TEST_F(StudentRepositoryQueryByFirstNameTest, QueryIsQueriable) {
   ByFirstName query {"Marek"};
   Student marek {"1", "Marek", "Aureliusz", "filozofia", StudyYear {3}};
   Student albert {"2", "Albert", "Einstein", "muzyka", StudyYear{1}};
-  EXPECT_TRUE(query.accept(marek));
-  EXPECT_FALSE(query.accept(albert));
+  EXPECT_TRUE(query.Accept(marek));
+  EXPECT_FALSE(query.Accept(albert));
 }

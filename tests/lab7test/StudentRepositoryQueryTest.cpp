@@ -30,17 +30,17 @@ class StudentRepositoryQueryTest : public ::testing::Test, MemLeakTest {
 
 TEST_F(StudentRepositoryQueryTest, QueryStudentByFirstName) {
   std::vector<Student> expected{repository["1"]};
-  EXPECT_EQ(expected, repository.query(ByFirstName {"Marek"}));
+  EXPECT_EQ(expected, repository.FindByQuery(ByFirstName {"Marek"}));
 }
 
 TEST_F(StudentRepositoryQueryTest, QueryStudentByLastName) {
   std::vector<Student> expected{repository["2"]};
-  EXPECT_EQ(expected, repository.query(ByLastName {"Einstein"}));
+  EXPECT_EQ(expected, repository.FindByQuery(ByLastName {"Einstein"}));
 }
 
 TEST_F(StudentRepositoryQueryTest, QueryStudentByOneOfPrograms) {
   std::set<Student> expected{repository["2"],repository["4"],repository["5"]};
-  std::vector<Student> result = repository.query(ByOneOfPrograms {"informatyka","muzyka"});
+  std::vector<Student> result = repository.FindByQuery(ByOneOfPrograms {"informatyka","muzyka"});
   EXPECT_EQ(3, result.size());
   EXPECT_TRUE(expected.find(result.at(0)) != expected.end());
   EXPECT_TRUE(expected.find(result.at(1)) != expected.end());
@@ -49,7 +49,7 @@ TEST_F(StudentRepositoryQueryTest, QueryStudentByOneOfPrograms) {
 
 TEST_F(StudentRepositoryQueryTest, QueryStudentByYearLowerOrEqualTo) {
   std::set<Student> expected{repository["2"],repository["1"],repository["4"],repository["5"]};
-  std::vector<Student> result = repository.query(ByYearLowerOrEqualTo {StudyYear{4}});
+  std::vector<Student> result = repository.FindByQuery(ByYearLowerOrEqualTo {StudyYear{4}});
   EXPECT_EQ(4, result.size());
   EXPECT_TRUE(expected.find(result.at(0)) != expected.end());
   EXPECT_TRUE(expected.find(result.at(1)) != expected.end());
@@ -60,7 +60,7 @@ TEST_F(StudentRepositoryQueryTest, QueryStudentByYearLowerOrEqualTo) {
 TEST_F(StudentRepositoryQueryTest, QueryStudentByFirstNameOrLastName) {
   std::set<Student> expected{repository["2"],repository["1"]};
 
-  std::vector<Student> result = repository.query(OrQuery {ByFirstName {"Albert"}, ByLastName {"Aureliusz"}});
+  std::vector<Student> result = repository.FindByQuery(OrQuery {ByFirstName {"Albert"}, ByLastName {"Aureliusz"}});
   EXPECT_EQ(2, result.size());
   EXPECT_TRUE(expected.find(result.at(0)) != expected.end());
   EXPECT_TRUE(expected.find(result.at(1)) != expected.end());
@@ -69,7 +69,7 @@ TEST_F(StudentRepositoryQueryTest, QueryStudentByFirstNameOrLastName) {
 TEST_F(StudentRepositoryQueryTest, QueryStudentByFirstNameAndByYearLowerOrEqualTo) {
   std::set<Student> expected{repository["2"]};
 
-  std::vector<Student> result = repository.query(AndQuery {ByFirstName {"Albert"}, ByYearLowerOrEqualTo {StudyYear{3}}});
+  std::vector<Student> result = repository.FindByQuery(AndQuery {ByFirstName {"Albert"}, ByYearLowerOrEqualTo {StudyYear{3}}});
   EXPECT_EQ(1, result.size());
   EXPECT_TRUE(expected.find(result.at(0)) != expected.end());
 }
