@@ -1,0 +1,8 @@
+//
+// Created by Admin on 2017-04-11.
+//
+
+#ifndef JIMP_EXERCISES_WORDCOUNTER_H
+#define JIMP_EXERCISES_WORDCOUNTER_H
+
+#endif //JIMP_EXERCISES_WORDCOUNTER_H
