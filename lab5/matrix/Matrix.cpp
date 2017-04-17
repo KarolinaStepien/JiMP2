@@ -4,6 +4,8 @@
 
 #include "Matrix.h"
 
+using algebra::Matrix;
+
 //stod
 complex<double> funkcja(string value_s) {
     string real = value_s.substr(0,value_s.find('i'));
@@ -15,6 +17,68 @@ complex<double> funkcja(string value_s) {
     c.imag(i);
     return c;
 }
+//zamiana z Matrix m("[1i3 2i5 3; 3 4 5; 6 7 8]") na tablice dwuwymiarowa
+/*Matrix::Matrix(string uuu) {
+    long semicolons = count(uuu.begin(), uuu.end(), ';');
+    string section = uuu.substr(0, uuu.find(";"));
+    long spaces = count(section.begin(), section.end(), " ");
+    rows = int(semicolons + 1);
+    columns = int(spaces + 1);
+
+    complex<double> **table = new complex<double> *[rows];
+    for (int i = 0; i < rows; i++) {
+        table[i] = new complex<double>[columns];
+    }
+    tab = table;
+
+    string one = uuu.substr(1, uuu.length() - 2); //1i3 2i5 3; 3 4 5; 6 7 8
+    regex pattern{R"((\+|-)*\w+\.\w*\s*(\+|-)*\s*\w*\.*\w*)"};
+    smatch matches;
+    int r = 0, c = 0;
+    while (regex_search(one, matches, pattern)) {
+        for (auto match:matches) {
+            string x = match.str();
+            tab[r][c] = funkcja(x);
+            c++;
+            if (c > columns - 1) {
+                c = 0;
+                r++;
+            }
+        }
+        one = matches.suffix().str();
+    }
+}*/
+//zamiana z initializer_list na tablice dwuwymiarowa
+/*Matrix::Matrix(std::initializer_list<vector<complex<double>>> cosik){
+    cout<<"udało sie costam"<<endl;
+    int n=0;
+    int m=0;
+    for(auto i=cosik.begin(); i!=cosik.end();i++){
+        n++;
+        m=0;
+        for(auto j=i->begin();j!=i->end();j++){
+            m++;
+            cout<<*j<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<n<<endl;
+    cout<<m<<endl;
+    Matrix(n, m);
+    n=0;
+    m=0;
+    for(auto l=cosik.begin(); l!=cosik.end();l++){
+        cout<<"stage1"<<endl;
+        n++;
+        m=0;
+        for(auto k=l->begin();k!=l->end();k++){
+            cout<<"stage2"<<endl;
+            m++;
+            tab[1][1]=*k;
+        }
+        cout<<endl;
+    }
+}*/
 //konstruktor bezparametrowy
 Matrix::Matrix():rows(0),columns(0),tab(NULL) {}
 //konstruktor parametrowy
@@ -51,7 +115,7 @@ Matrix::Matrix(const Matrix &matrix){
     }
     tab = new_tab;
 }
-//operator przypisania
+//operator przypisania kopiujacy
 Matrix & Matrix::operator=(const Matrix& matrix) {
     if (this == &matrix) {
         return *this;
@@ -76,7 +140,6 @@ Matrix & Matrix::operator=(const Matrix& matrix) {
         }
     }
     tab = new_tab;
-
 }
 //funkcja tworzaca macierz
 void Matrix::Create_Matrix() {
@@ -215,134 +278,3 @@ Matrix Matrix::Exponentation(int p){
     }
     return power;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-// Created by zosia on 01.04.17.
-//
-
-/*#include <complex>
-#include "Matrix.h"
-
-
-Matrix::Matrix(int n, int m) {
-    this->n=n;
-    this->m=m;
-    macierz = new complex<double>*[n];
-    for (int i=0; i<n; ++i){
-        macierz[i] = new complex<double>[m];
-    }
-
-}
-
-Matrix::Matrix(Matrix &ziemniak) {
-
-    n = ziemniak.n;
-    m = ziemniak.m;
-    complex<double> ** wektory = new complex<double>*[n];
-    for (int i=0; i<n; ++i){
-        wektory[i] = new complex<double>[m];
-        for(int x=0;x<m;x++)
-        {
-            wektory[i][x]=ziemniak.macierz[i][x];
-        }
-    }
-}
-
-Matrix::Matrix() {
-    cout << "Dzien dobry, tu Twoja macierz."<<endl;
-}
-
-Matrix::~Matrix() {
-    cout << "Do widzenia!" << endl;
-}
-
-Matrix::Matrix(std::string matlabowe_cos) {
-    int n = 0, m = 0;
-    string::size_type sz;
-    string liczba = "", liczba_re = "", liczba_im = "";
-    double liczba_double, liczba_re_double,liczba_im_double;
-    for (string::iterator it = matlabowe_cos.begin(); it != matlabowe_cos.end(); ++it) {
-        if (*it == 32) m++;
-        if (*it == 59) n++;
-    }
-    this->n = n;
-    this->m = m;
-    macierz = new complex<double> *[n];
-    for (int i = 0; i < n; ++i) {
-        macierz[i] = new complex<double>[m];
-    }
-
-    int i = 0, j = 0;
-    for (string::iterator it = matlabowe_cos.begin(); it != matlabowe_cos.end(); ++it) {
-        if ((*it <= 57 && *it >= 48) ||  *it == 105 || *it == 46) {
-            cout << " ";
-            liczba += *it;
-
-        }
-        else if (*it == ' ' || *it == ']') {
-            if (liczba.find("i") != string::npos) {
-                for (int k = 0; k != liczba.find("i"); k++) {
-                    liczba_re += liczba[k];
-                    liczba_im += liczba[liczba.length() - k -1];
-                }
-                liczba_re_double = stod(liczba_re, &sz);
-                liczba_im_double = stod(liczba_im, &sz);
-                macierz[i][j] = complex<double>(liczba_re_double, liczba_im_double);
-                j++;
-                liczba = "";
-                liczba_re = "";
-                liczba_im = "";
-            } else {
-                liczba_double = stod(liczba, &sz);
-                macierz[i][j] = complex<double>(liczba_double);
-                j++;
-                liczba = "";
-            }
-        }
-        else if (*it == 59) {
-            if (liczba.find("i") != string::npos) {
-                for (int k = 0; k != liczba.find("i"); k++) {
-                    liczba_re += liczba[k];
-                    liczba_im += liczba[liczba.length() - k];
-                }
-                liczba_re_double = stod(liczba_re, &sz);
-                liczba_im_double = stod(liczba_im, &sz);
-                macierz[i][j] = complex<double>(liczba_re_double, liczba_im_double);
-                j++;
-                liczba = "";
-                liczba_re = "";
-                liczba_im = "";
-            } else {
-                liczba_double = stod(liczba, &sz);
-                macierz[i][j] = complex<double>(liczba_double);
-                j++;
-                liczba = "";
-
-            }
-            *it++;
-        }
-    }
-
-}
-
-void Matrix::Print() {
-    for(int o=0;o<n;o++){
-        for(int p=0;p<=m;p++){
-            cout << macierz[o][p];
-        }
-    }
-
-}*/
