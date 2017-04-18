@@ -41,13 +41,18 @@ void Point::SetY(double y_) {
     Point::y_ = y_;
 }
 
-void CheckNextChar(char c, istream* is) {
+//pomocnicze funkcje do operatora istream >>
+/*void CheckNextChar(char c, istream* is) {
     int next_char = is->peek();
     if (next_char != c) {
         throw runtime_error("invalid character");
     }
     is->ignore();
-}
+}*/
+
+/*void IgnoreWhitespace(istream* is) {
+    (*is) >> ws;
+}*/
 
 double ReadNumber(istream* is) {
     double d;
@@ -55,13 +60,24 @@ double ReadNumber(istream* is) {
     return d;
 }
 
-istream& operator>>(istream & input, Point& p){
-    CheckNextChar('(', &input);
+//przeciazanie operatorow
+istream& operator>>(istream & input, Point & p){
+    //CheckNextChar('(', &input);
     p.SetX(ReadNumber(&input));
-    CheckNextChar(',', &input);
+    //CheckNextChar(',', &input);
+    //IgnoreWhitespace(&input);
     p.SetY(ReadNumber(&input));
-    CheckNextChar(')', &input);
+    //CheckNextChar(')', &input);
     return input;
+}
+
+ostream& operator<<(ostream & output, Point & p){
+    output << "(";
+    output << p.GetX();
+    output << ",";
+    output << p.GetY();
+    output << ")";
+    return output;
 }
 
 //3D

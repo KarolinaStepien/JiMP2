@@ -38,6 +38,7 @@ private:
     double z_;
 };
 
-istream& operator>>(istream &is, Point& point);
+istream& operator>>(istream & is, Point & point);
+ostream& operator<<(ostream & os, Point & point);
 
 #endif //JIMP_EXERCISES_POINT3D_H
