@@ -14,6 +14,7 @@ add_gtest_with_memleak(comparable libcomparable)
 add_gtest_with_memleak(iterable libiterable)
 add_gtest_with_memleak(iterable_zipper libiterable)
 add_gtest_with_memleak(iterable_enumeration libiterable)
+add_gtest_with_memleak(iterable_product libiterable)
 add_gtest_with_memleak(student_repository_query libstudentrepositoryqueries)
 add_gtest_with_memleak(student_repository_query_by_first_name libstudentrepositoryqueries)
 
@@ -21,7 +22,7 @@ add_gtest_with_memleak(student_repository_query_by_first_name libstudentreposito
 #######################################################################
 ##  ALL TESTS
 #######################################################################
-add_executable(lab7_all_tests ${SOURCE_FILES})
+add_executable(lab7_all_tests ${SOURCE_FILES} IterableProductTest.cpp)
 
 target_link_libraries(lab7_all_tests ${GTEST_LIBS})
 target_link_libraries(lab7_all_tests libarrayfill)
