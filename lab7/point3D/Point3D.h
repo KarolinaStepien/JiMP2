@@ -5,36 +5,40 @@
 #ifndef JIMP_EXERCISES_POINT3D_H
 #define JIMP_EXERCISES_POINT3D_H
 
-#include <ostream>
+#include <iostream>
+
+using namespace std;
 
 class Point {
 public:
-    //Konstruktor bezparametrowy
     Point();
-    //Konstruktor parametrowy
     Point(double x, double y);
-    //Destruktor wykonywany przed zwolnieniem pamięci
     ~Point();
 
-    //Metody nie modyfikujące stanu obiektu (const na końcu metody)
-    //nie mogą zmodyfikować tego obiektu.
-    void ToString(std::ostream *out) const;
     double Distance(const Point &other) const;
 
-
-    //metody akcesorów są publiczne i tylko przy ich pomocy
-    //można się dostać z zewnątrz do pól klasy
     double GetX() const;
     double GetY() const;
 
-    //metody seterów pozwalające zmienić stan obiektu
-    //po jego zainicjalizowaniu
     void SetX(double x);
     void SetY(double y);
+
 private:
-    //w przeciwienstwie do pythona C++ wymaga jawnej deklaracji składowych pól klasy:
     double x_, y_;
 };
+//3D
+class Point3D: public Point{
+public:
+    Point3D();
+    Point3D(double x, double y, double z);
+    ~Point3D();
+    double GetZ() const;
+    double Distance(const Point3D &other) const;
+private:
+    double z_;
+};
 
+istream& operator>>(istream & is, Point & point);
+ostream& operator<<(ostream & os, Point & point);
 
 #endif //JIMP_EXERCISES_POINT3D_H

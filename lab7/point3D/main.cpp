@@ -4,53 +4,42 @@
 
 #include "Point3D.h"
 
-#include <memory>
-#include <vector>
-#include <iostream>
-#include <sstream>
-
-using namespace std;
-
 int main(void){
-//wywołuje konstruktor domyślny
-    Point p;
-    Point p2 ();
-    Point p3 {}; //brace initilizer preferowany
-//wywołuje konstruktor parametryczny
-    Point p4 (12,34);
-    Point p5 {30, 20};
-
-    const Point *ptr_p = new Point(3,4);
-
-    p4.ToString(&cout);
-    cout <<  ptr_p->Distance(p4) << endl;
-
-    delete ptr_p;
-
-//parametry przekazywane do make_unique tworzące
-//wskaznik unique_ptr przyjmują argumety konstruktora parametrycznego
-//stąd możliwe są dwa wywowłania:
-    /*auto ptr_p2 = make_unique<Point>();
-    auto ptr_p3 = make_unique<Point>(-15,90);*/
-
-    stringstream ss;
-    //ptr_p2.ToString(&ss);
-    p4.ToString(&ss);
-    ss << " i ";
-    //ptr_p3.ToString(&ss);
-    p5.ToString(&ss);
-    cout << "Odległość między punktami " << ss.str() << " wynosi " << p4.Distance(p5) << endl;//ptr_p2->Distance(*ptr_p3) << endl;
-    cout << "Zostanie wywołany destruktor punktów ptr_p2 i ptr_p3?" << endl;
-
-
-    //ronica miedzy emplace_back a push_back:
-    vector<Point> vp;
-    //push_back kopiuje przekazany punkt na koniec wektora
-    vp.push_back(Point {9,8});
-    //natomiast emplace_back tworzy obiekt na koncu wektora
-    //argumenty przekazane do funkcji odpowiadają konstruktorowi parametrycznemu
-    vp.emplace_back(5, -5);
-    //wiec mozna tez wywołać:
-    vp.emplace_back();
+    Point punkt2d(2,3);
+    Point3D punkt3d(2,7,1);
+    Point3D punkt3d2(2,10,5);
+    cout << endl << "Odległość między punktami 2d (2,3) i 3d (2,7,1) wynosi " << punkt2d.Distance(punkt3d) <<
+         " <- liczy tylko pierwsze 2 wspolrzedne" << endl;
+    cout << "Odległość między dwoma punktami 3d (2,7,1) i (2,10,5) wynosi " << punkt3d.Distance(punkt3d2) <<
+         " <- liczy wszystkie 3 wspolrzedne" << endl << endl;
+    Point3D punkt3d3;
+    cout << endl << "Wpisz wspolrzedne punktu w formie (a,b,c):" << endl;
+    cin >> punkt3d3; //przeciazony operator istream
+    cout << "Odległość między dwoma punktami 3d wynosi " << punkt3d2.Distance(punkt3d3) << " <- dziala OK" << endl;
+    cout << "Punkt 3d2 ma wspolrzedne: " << punkt3d2 << endl << endl; //przeciazony operator ostream
+    return 0;
 }
 
+/*zadanie 5:
+                            KONSTRUKTORY NAJPIERW 2D, POTEM 3D,
+                            poniewaz obiekty klasy Point3D sa rownoczesnie obiektami klasy Point, po ktorej dziedzicza
+Konstruktor parametrowy 2d!
+
+Konstruktor parametrowy 2d!
+Konstruktor parametrowy 3d!
+                            DESTRUKTORY NAJPIERW 3D, POTEM 2D,
+                            czyli usuwanie wykonuje sie w odwrotnej kolejnosci niz konstruowanie
+Destruktor 3d!
+Destruktor 2d!
+
+Destruktor 2d!
+
+zadanie 6:
+
+Dla punkt2d.distance(punkt3d) policzona odleglosc tylko miedzy pierwszymi dwoma wspolrzednymi
+Dla punkt3d.distance(punkt3d) policzona odleglosc miedzy wszystkimi trzema wspolrzednymi
+
+zadanie 7:
+
+Wypisanie cout << punkt3d2; daje w efekcie pierwsze 2 wspolrzedne punktu 3d w postaci (a,b)
+*/
