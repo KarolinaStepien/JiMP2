@@ -3,11 +3,12 @@
 //
 
 #include <gtest/gtest.h>
-#include <vector>
+#include <memory>
 #include <MemLeakTest.h>
 #include <StudentRepository.h>
 #include <StudentRepositoryQueries.h>
 
+using ::academia::Query;
 using ::academia::ByFirstName;
 using ::academia::ByLastName;
 using ::academia::ByOneOfPrograms;
@@ -17,6 +18,7 @@ using ::academia::AndQuery;
 using ::academia::StudentRepository;
 using ::academia::Student;
 using ::academia::StudyYear;
+using ::std::make_unique;
 
 class StudentRepositoryQueryTest : public ::testing::Test, MemLeakTest {
  public:
@@ -28,19 +30,27 @@ class StudentRepositoryQueryTest : public ::testing::Test, MemLeakTest {
       Student {"5", "Maria", "Gopert-Mayer", "fizyka", StudyYear {3}}};
 };
 
+TEST_F(StudentRepositoryQueryTest, SimplerTest) {
+  std::vector<Student> expected{repository["1"]};
+  std::unique_ptr<Query> r = make_unique<ByFirstName>("Marek");
+  //repository.FindByQuery(r);
+}
+
 TEST_F(StudentRepositoryQueryTest, QueryStudentByFirstName) {
   std::vector<Student> expected{repository["1"]};
-  EXPECT_EQ(expected, repository.FindByQuery(ByFirstName {"Marek"}));
+  EXPECT_EQ(expected, repository.FindByQuery(make_unique<ByFirstName>("Marek")));
 }
 
 TEST_F(StudentRepositoryQueryTest, QueryStudentByLastName) {
   std::vector<Student> expected{repository["2"]};
-  EXPECT_EQ(expected, repository.FindByQuery(ByLastName {"Einstein"}));
+  EXPECT_EQ(expected, repository.FindByQuery(make_unique<ByLastName>("Einstein")));
 }
 
 TEST_F(StudentRepositoryQueryTest, QueryStudentByOneOfPrograms) {
-  std::set<Student> expected{repository["2"],repository["4"],repository["5"]};
-  std::vector<Student> result = repository.FindByQuery(ByOneOfPrograms {"informatyka","muzyka"});
+  std::set<Student> expected{repository["3"], repository["4"], repository["5"]};
+  std::vector<Student> result =
+      repository.FindByQuery(make_unique<ByOneOfPrograms, std::initializer_list<std::string>>({"informatyka",
+                                                                                               "fizyka"}));
   EXPECT_EQ(3, result.size());
   EXPECT_TRUE(expected.find(result.at(0)) != expected.end());
   EXPECT_TRUE(expected.find(result.at(1)) != expected.end());
@@ -48,8 +58,8 @@ TEST_F(StudentRepositoryQueryTest, QueryStudentByOneOfPrograms) {
 }
 
 TEST_F(StudentRepositoryQueryTest, QueryStudentByYearLowerOrEqualTo) {
-  std::set<Student> expected{repository["2"],repository["1"],repository["4"],repository["5"]};
-  std::vector<Student> result = repository.FindByQuery(ByYearLowerOrEqualTo {StudyYear{4}});
+  std::set<Student> expected{repository["2"], repository["1"], repository["3"], repository["5"]};
+  std::vector<Student> result = repository.FindByQuery(make_unique<ByYearLowerOrEqualTo>(StudyYear{3}));
   EXPECT_EQ(4, result.size());
   EXPECT_TRUE(expected.find(result.at(0)) != expected.end());
   EXPECT_TRUE(expected.find(result.at(1)) != expected.end());
@@ -58,9 +68,10 @@ TEST_F(StudentRepositoryQueryTest, QueryStudentByYearLowerOrEqualTo) {
 }
 
 TEST_F(StudentRepositoryQueryTest, QueryStudentByFirstNameOrLastName) {
-  std::set<Student> expected{repository["2"],repository["1"]};
+  std::set<Student> expected{repository["2"], repository["1"]};
 
-  std::vector<Student> result = repository.FindByQuery(OrQuery {ByFirstName {"Albert"}, ByLastName {"Aureliusz"}});
+  std::vector<Student> result = repository.FindByQuery(make_unique<OrQuery>(make_unique<ByFirstName>("Albert"),
+                                                                            make_unique<ByLastName>("Aureliusz")));
   EXPECT_EQ(2, result.size());
   EXPECT_TRUE(expected.find(result.at(0)) != expected.end());
   EXPECT_TRUE(expected.find(result.at(1)) != expected.end());
@@ -69,7 +80,9 @@ TEST_F(StudentRepositoryQueryTest, QueryStudentByFirstNameOrLastName) {
 TEST_F(StudentRepositoryQueryTest, QueryStudentByFirstNameAndByYearLowerOrEqualTo) {
   std::set<Student> expected{repository["2"]};
 
-  std::vector<Student> result = repository.FindByQuery(AndQuery {ByFirstName {"Albert"}, ByYearLowerOrEqualTo {StudyYear{3}}});
+  std::vector<Student> result = repository.FindByQuery(
+      make_unique<AndQuery>(make_unique<ByFirstName>("Albert"),
+                            make_unique<ByYearLowerOrEqualTo>(StudyYear{3})));
   EXPECT_EQ(1, result.size());
   EXPECT_TRUE(expected.find(result.at(0)) != expected.end());
 }
