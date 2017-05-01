@@ -18,6 +18,7 @@ namespace datastructures {
         Word() {};
         Word(std::string str);
         ~Word() {};
+    private:
         std::string word;
     };
 
