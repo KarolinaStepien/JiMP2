@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <set>
 
 namespace datastructures {
 
@@ -17,7 +18,6 @@ namespace datastructures {
         Word() {};
         Word(std::string str);
         ~Word() {};
-    private:
         std::string word;
     };
 
@@ -27,6 +27,11 @@ namespace datastructures {
         Counts() {};
         Counts(int number);
         ~Counts() {};
+        bool operator <(const Counts &nana) const;
+        bool operator >(const Counts &lala) const;
+        bool operator ==(const Counts &haha) const;
+        Counts &operator++();
+        //Counts operator++(int);
     private:
         int counts;
     };
@@ -36,9 +41,13 @@ namespace datastructures {
         WordCounter();
         WordCounter(std::initializer_list<Word> list_ini);
         ~WordCounter() {};
+        int operator[](const std::string &gaga);
+        int DistinctWords();
+        int TotalWords();
+        std::set<Word> Words();
     private:
-        int all_words;
-        int all_numbers;
+        int distinct;
+        int total;
         std::list<std::pair<Word, Counts>> list_list;
     };
 }
