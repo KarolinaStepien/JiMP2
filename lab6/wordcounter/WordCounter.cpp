@@ -16,6 +16,15 @@ Counts::Counts(int number) {
 }
 
 //operatory podklas
+//operatory porownania slow potrzebne do testow
+bool Word::operator <(const Word &qaqa) const{
+    return (word < qaqa.word);
+}
+
+bool Word::operator ==(const Word &fafa) const{
+    return (word == fafa.word);
+}
+
 //porownywanie wzgledem liczebnosci
 bool Counts::operator<(const Counts &nana) const{
     return (counts < nana.counts);
@@ -41,8 +50,8 @@ Counts Counts::operator++(int){
 
 //konstruktor klasy glownej
 WordCounter::WordCounter() {
-    int distinct = 0;
-    int total = 0;
+    distinct = 0;
+    total = 0;
 }
 
 //konstruktor z lista inicjalizacyjna
@@ -86,6 +95,7 @@ int WordCounter::operator[](const std::string &gaga) {
 
 //funkcje zwracajace ilosc roznych i wszystkich slow
 int WordCounter::DistinctWords() {
+    //std::cout << distinct;
     return distinct;
 }
 

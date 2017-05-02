@@ -18,6 +18,8 @@ namespace datastructures {
         Word() {};
         Word(std::string str);
         ~Word() {};
+        bool operator <(const Word &qaqa) const;
+        bool operator ==(const Word &fafa) const;
     private:
         std::string word;
     };
