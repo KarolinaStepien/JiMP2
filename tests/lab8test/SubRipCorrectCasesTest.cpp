@@ -23,7 +23,7 @@ TEST_F(SubRipCorrectCasesTest, SubtitlesMovedBy300ms) {
   stringstream in {"1\n00:05:54,555 --> 00:05:56,722\nText\n\n2\n00:06:06,433 --> 00:06:07,801\nNEWLINE\n"};
   stringstream out;
   EXPECT_NO_THROW(subs->ShiftAllSubtitlesBy(300, 24, &in, &out));
-  EXPECT_EQ("1\n00:05:54,855 --> 00:05:57,022\nText\n\n2\n00:06:06,733 --> 00:06:08,101\nNEWLINE\n"s,out.str());
+  EXPECT_EQ("1\n00:05:54,855 --> 00:05:57,022\nText\n\n2\n00:06:06,733 --> 00:06:08,101\nNEWLINE\n\n"s,out.str());
 }
 
 TEST_F(SubRipCorrectCasesTest, SubtitlesMovedBy1500ms) {
