@@ -44,6 +44,7 @@ T FromString(const std::string &value) {
   return v;
 }
 
+bool MatchesUpToExtraNewLine(const std::string &expected, const std::string &result);
 
 };
 
