@@ -1,4 +1,4 @@
-project(lab6)
+project(lab7)
 
 add_subdirectory_if_exists(arrayfill)
 add_subdirectory_if_exists(comparable)
