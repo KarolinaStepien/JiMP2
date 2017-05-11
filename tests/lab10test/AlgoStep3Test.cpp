@@ -2,10 +2,9 @@
 // Created by mwypych on 11.05.17.
 //
 
-
 #include <gtest/gtest.h>
-#include <array>
-#include <memory>
+#include <utility>
+#include <vector>
 #include <MemLeakTest.h>
 #include <Algo.h>
 
