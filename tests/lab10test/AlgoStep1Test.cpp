@@ -4,8 +4,8 @@
 
 
 #include <gtest/gtest.h>
-#include <array>
-#include <memory>
+#include <vector>
+#include <utility>
 #include <MemLeakTest.h>
 #include <Algo.h>
 
@@ -27,8 +27,9 @@ TEST_P(AlgoStep1, DefineMethod_CopyInto) {
   EXPECT_EQ(expected, buffer);
 }
 
-std::vector<TestParam> algo1TestData
-    {{{4, 89891},2,{4, 89891}}, {{4, 89891},1,{4}}};
+std::vector<TestParam> algo1TestData {
+    TestParam {std::vector<int>{4, 89891},2,std::vector<int>{4, 89891}},
+    TestParam {std::vector<int>{4, 89891},1,std::vector<int>{4}}};
 
 INSTANTIATE_TEST_CASE_P(AlgoStep1Fixture,
                         AlgoStep1,
