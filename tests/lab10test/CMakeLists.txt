@@ -7,7 +7,8 @@ set(TEST_LAB_NUMBER 10)
 ##  TESTS
 #######################################################################
 add_gtest_with_memleak(scheduler libscheduler)
-add_gtest_with_memleak_stepped(algo 1 2 3 4)
+add_gtest_with_memleak(schedule libscheduler)
+add_gtest_with_memleak_stepped(algo 1 2 3 4 5)
 
 
 #######################################################################
