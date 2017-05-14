@@ -61,8 +61,7 @@ class BuildingRepositoryTest : public ::testing::Test, protected MemLeakTest {
   void ExpectSingleSerializationWithArrayFieldOfVectorOfSize(size_t expected_size, MockSerializer *serializer);
 };
 
-TEST_F(BuildingRepositoryTest, IsAbleToCreateEmptyBuildingRepositoryAndSaveIt)
-{
+TEST_F(BuildingRepositoryTest, IsAbleToCreateEmptyBuildingRepositoryAndSaveIt) {
   BuildingRepository repository{};
   MockSerializer serializer;
   std::vector<std::reference_wrapper<const Serializable>> empty;
@@ -96,14 +95,13 @@ TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryAddSingleValueAnd
   repository.StoreAll(&serializer);
 }
 
-
 TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryWith3BuildingsAndSaveIt) {
 
   BuildingRepository repository{};
   Building
       b1{101, "B-1", {Room {101301, "H-24", Room::Type::LECTURE_HALL}, Room {102683, "021", Room::Type::COMPUTER_LAB}}};
-  Building b2 {102, "B-2", {}};
-  Building c2 {103, "C-2", {Room {100110,"208",Room::Type::COMPUTER_LAB}}};
+  Building b2{102, "B-2", {}};
+  Building c2{103, "C-2", {Room {100110, "208", Room::Type::COMPUTER_LAB}}};
   MockSerializer serializer;
 
   ExpectSingleSerializationWithArrayFieldOfVectorOfSize(3, &serializer);
@@ -120,8 +118,8 @@ TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryWith3BuildingsAnd
   BuildingRepository repository{};
   Building
       b1{101, "B-1", {Room {101301, "H-24", Room::Type::LECTURE_HALL}, Room {102683, "021", Room::Type::COMPUTER_LAB}}};
-  Building b2 {102, "B-2", {}};
-  Building c2 {103, "C-2", {Room {100110,"208",Room::Type::COMPUTER_LAB}}};
+  Building b2{102, "B-2", {}};
+  Building c2{103, "C-2", {Room {100110, "208", Room::Type::COMPUTER_LAB}}};
   std::stringstream out;
   XmlSerializer serializer{&out};
 
@@ -130,7 +128,26 @@ TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryWith3BuildingsAnd
   repository.Add(c2);
 
   repository.StoreAll(&serializer);
-  EXPECT_EQ("<building_repository><buildings><building><id>101<\\id><name>B-1<\\name><rooms><room><id>101301<\\id><name>H-24<\\name><type>LECTURE_HALL<\\type><\\room><room><id>102683<\\id><name>021<\\name><type>COMPUTER_LAB<\\type><\\room><\\rooms><\\building><building><id>102<\\id><name>B-2<\\name><rooms><\\rooms><\\building><building><id>103<\\id><name>C-2<\\name><rooms><room><id>100110<\\id><name>208<\\name><type>COMPUTER_LAB<\\type><\\room><\\rooms><\\building><\\buildings><\\building_repository>"s, out.str());
+  EXPECT_EQ(
+      "<building_repository>"
+        "<buildings>"
+          "<building><id>101<\\id><name>B-1<\\name>"
+            "<rooms>"
+              "<room><id>101301<\\id><name>H-24<\\name><type>LECTURE_HALL<\\type><\\room>"
+              "<room><id>102683<\\id><name>021<\\name><type>COMPUTER_LAB<\\type><\\room>"
+            "<\\rooms>"
+          "<\\building>"
+          "<building><id>102<\\id><name>B-2<\\name>"
+            "<rooms><\\rooms>"
+          "<\\building>"
+          "<building><id>103<\\id><name>C-2<\\name>"
+            "<rooms>"
+              "<room><id>100110<\\id><name>208<\\name><type>COMPUTER_LAB<\\type><\\room>"
+            "<\\rooms>"
+          "<\\building>"
+        "<\\buildings>"
+      "<\\building_repository>"s,
+      out.str());
 }
 
 TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryWith3BuildingsAndSaveIntoJson) {
@@ -138,8 +155,8 @@ TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryWith3BuildingsAnd
   BuildingRepository repository{};
   Building
       b1{101, "B-1", {Room {101301, "H-24", Room::Type::LECTURE_HALL}, Room {102683, "021", Room::Type::COMPUTER_LAB}}};
-  Building b2 {102, "B-2", {}};
-  Building c2 {103, "C-2", {Room {100110,"208",Room::Type::COMPUTER_LAB}}};
+  Building b2{102, "B-2", {}};
+  Building c2{103, "C-2", {Room {100110, "208", Room::Type::COMPUTER_LAB}}};
   std::stringstream out;
   JsonSerializer serializer{&out};
 
@@ -148,7 +165,19 @@ TEST_F(BuildingRepositoryTest, IsAbleToCreateBuildingRepositoryWith3BuildingsAnd
   repository.Add(c2);
 
   repository.StoreAll(&serializer);
-  EXPECT_EQ("{\"buildings\": [{\"id\": 101, \"name\": \"B-1\", \"rooms\": [{\"id\": 101301, \"name\": \"H-24\", \"type\": \"LECTURE_HALL\"}, {\"id\": 102683, \"name\": \"021\", \"type\": \"COMPUTER_LAB\"}]}, {\"id\": 102, \"name\": \"B-2\", \"rooms\": []}{\"id\": 103, \"name\": \"C-2\", \"rooms\": [{\"id\": 100110, \"name\": \"208\", \"type\": \"COMPUTER_LAB\"}]}]}"s, out.str());
+  EXPECT_EQ(
+      "{\"buildings\": "
+        "[{\"id\": 101, \"name\": \"B-1\", "
+          "\"rooms\": "
+            "[{\"id\": 101301, \"name\": \"H-24\", \"type\": \"LECTURE_HALL\"}, "
+            "{\"id\": 102683, \"name\": \"021\", \"type\": \"COMPUTER_LAB\"}]}, "
+        "{\"id\": 102, \"name\": \"B-2\", "
+          "\"rooms\": "
+            "[]}, "
+        "{\"id\": 103, \"name\": \"C-2\", "
+          "\"rooms\": "
+            "[{\"id\": 100110, \"name\": \"208\", \"type\": \"COMPUTER_LAB\"}]}]}"s,
+      out.str());
 }
 
 TEST_F(BuildingRepositoryTest, OneCanAccessBuildingsInsideRepositoryWithBracketOperator) {
@@ -156,8 +185,8 @@ TEST_F(BuildingRepositoryTest, OneCanAccessBuildingsInsideRepositoryWithBracketO
   BuildingRepository repository{};
   Building
       b1{101, "B-1", {Room {101301, "H-24", Room::Type::LECTURE_HALL}, Room {102683, "021", Room::Type::COMPUTER_LAB}}};
-  Building b2 {102, "B-2", {}};
-  Building c2 {103, "C-2", {Room {100110,"208",Room::Type::COMPUTER_LAB}}};
+  Building b2{102, "B-2", {}};
+  Building c2{103, "C-2", {Room {100110, "208", Room::Type::COMPUTER_LAB}}};
 
   repository.Add(b1);
   repository.Add(b2);
@@ -177,8 +206,8 @@ TEST_F(BuildingRepositoryTest, OneCanAccessBuildingsInsideRepositoryWithConstBra
   BuildingRepository repository{};
   Building
       b1{101, "B-1", {Room {101301, "H-24", Room::Type::LECTURE_HALL}, Room {102683, "021", Room::Type::COMPUTER_LAB}}};
-  Building b2 {102, "B-2", {}};
-  Building c2 {103, "C-2", {Room {100110,"208",Room::Type::COMPUTER_LAB}}};
+  Building b2{102, "B-2", {}};
+  Building c2{103, "C-2", {Room {100110, "208", Room::Type::COMPUTER_LAB}}};
 
   repository.Add(b1);
   repository.Add(b2);
@@ -193,9 +222,7 @@ TEST_F(BuildingRepositoryTest, OneCanAccessBuildingsInsideRepositoryWithConstBra
   EXPECT_EQ(103, repository[103].value().Id());
 }
 
-
-
-void BuildingRepositoryTest::ExpectSingleSerializationWithArrayFieldOfEmptyVector (MockSerializer *serializer) {
+void BuildingRepositoryTest::ExpectSingleSerializationWithArrayFieldOfEmptyVector(MockSerializer *serializer) {
   this->StopRecording();
   ::testing::InSequence in_sequence;
   EXPECT_CALL(*serializer, Header("building_repository")).Times(1);
@@ -204,7 +231,8 @@ void BuildingRepositoryTest::ExpectSingleSerializationWithArrayFieldOfEmptyVecto
   this->ResumeRecording();
 }
 
-void  BuildingRepositoryTest::ExpectSingleSerializationWithArrayFieldOfVectorOfSize(size_t expected_size, MockSerializer *serializer) {
+void BuildingRepositoryTest::ExpectSingleSerializationWithArrayFieldOfVectorOfSize(size_t expected_size,
+                                                                                   MockSerializer *serializer) {
   this->StopRecording();
   ::testing::InSequence in_sequence;
   EXPECT_CALL(*serializer, Header("building_repository")).Times(1);
