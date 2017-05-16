@@ -9,6 +9,7 @@ set(TEST_LAB_NUMBER 9)
 add_gtest_with_memleak(base_serializer libserialization)
 add_gtest_with_memleak(xml_serializer libserialization)
 add_gtest_with_memleak(json_serializer libserialization)
+add_gtest_with_memleak(building_repository libserialization)
 
 
 #######################################################################

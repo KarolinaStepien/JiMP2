@@ -23,5 +23,6 @@ add_subdirectory(lab6)
 add_subdirectory(lab7)
 add_subdirectory(lab8)
 add_subdirectory(lab9)
+add_subdirectory(lab10)
 add_subdirectory(tests)
 
