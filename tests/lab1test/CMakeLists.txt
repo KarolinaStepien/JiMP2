@@ -10,7 +10,7 @@ set(REVERSE_STRING_SRC ReverseStringTest.cpp)
 set(PALINDROME_SRC PalindromeTest.cpp)
 set(MULTIPLICATION_TABLE_SRC MultiplicationTableTest.cpp)
 set(DOUBLE_BASE_PALINDROME_SRC DoubleBasePalindromeTest.cpp)
-set(SOURCE_FILES ${FACTORIAL_SRC} ${REVERSE_STRING_SRC} ${PALINDROME_SRC} ${MULTIPLICATION_TABLE_SRC} ${DOUBLE_BASE_PALINDROME_SRC} ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/main.cpp ../../lab5/matrix/Matrix.cpp ../../lab5/matrix/Matrix.h ../../lab5/matrix/main.cpp ../../lab7/examples/Example.cpp ../../lab7/examples/Example.h ../../lab7/examples/main.cpp ../../lab8/ballexception/BallException.cpp ../../lab8/ballexception/BallException.h ../../lab8/ballexception/main.cpp ../../lab9/juwejuwe/JuweJuwe.cpp ../../lab9/juwejuwe/JuweJuwe.h ../../lab9/juwejuwe/main.cpp)
+set(SOURCE_FILES ${FACTORIAL_SRC} ${REVERSE_STRING_SRC} ${PALINDROME_SRC} ${MULTIPLICATION_TABLE_SRC} ${DOUBLE_BASE_PALINDROME_SRC} ../../lab2/polybius/Polybius.cpp ../../lab2/polybius/Polybius.h ../../lab2/polybius/main.cpp ../../lab5/matrix/Matrix.cpp ../../lab5/matrix/Matrix.h ../../lab5/matrix/main.cpp ../../lab7/examples/Example.cpp ../../lab7/examples/Example.h ../../lab7/examples/main.cpp ../../lab8/ballexception/BallException.cpp ../../lab8/ballexception/BallException.h ../../lab8/ballexception/main.cpp ../../lab9/juwejuwe/JuweJuwe.cpp ../../lab9/juwejuwe/JuweJuwe.h ../../lab9/juwejuwe/main.cpp ../../lab10/algotest/Algo.cpp ../../lab10/algotest/Algo.h ../../lab10/algotest/main.cpp)
 
 set(GTEST_LIBS gtest gtest_main gmock gmock_main)
 
