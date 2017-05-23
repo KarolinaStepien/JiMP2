@@ -37,6 +37,8 @@ using ::std::end;
 using ::std::pair;
 using ::std::distance;
 using ::std::find;
+using ::std::set_intersection;
+using ::std::back_inserter;
 
 using ::testing::AssertionResult;
 using ::testing::AssertionFailure;
@@ -51,10 +53,18 @@ ostream &operator<<(ostream &out, const Schedule &schedule) {
   return out;
 }
 
-ostream &operator<<(ostream &out, const vector<int> &v) {
+template<class T>
+ostream &operator<<(ostream &out, const vector<T> &v) {
   out << utility::ToString(v);
   return out;
 }
+
+template<class T>
+ostream &operator<<(ostream &out, const set<T> &v) {
+  out << utility::ToString(v);
+  return out;
+}
+
 
 vector<int> Map(const Schedule &schedule, int (*mapper)(const SchedulingItem &)) {
   std::vector<int> teachers;
@@ -65,7 +75,7 @@ vector<int> Map(const Schedule &schedule, int (*mapper)(const SchedulingItem &))
 }
 
 vector<int> &Unique(vector<int> &v) {
-  auto last = unique(begin(v),end(v));
+  auto last = unique(begin(v), end(v));
   v.erase(last, end(v));
   return v;
 }
@@ -73,6 +83,19 @@ vector<int> &Unique(vector<int> &v) {
 vector<int> &Sorted(vector<int> &v) {
   sort(begin(v), end(v));
   return v;
+}
+
+vector<int> Intesect(const vector<int> &v1, const vector<int> &v2) {
+  vector<int> result;
+  set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(result));
+  return result;
+}
+
+template<class V1, class V2>
+auto SymmetricDifference(const V1 &set1, const V2 &set2) {
+  vector<int> result;
+  std::set_symmetric_difference(set1.begin(), set1.end(), set2.begin(), set2.end(), back_inserter(result));
+  return result;
 }
 
 vector<Schedule> Map(const Schedule &schedule, const vector<int> &ids, Schedule (*mapper)(const Schedule &s, int id)) {
@@ -101,6 +124,11 @@ vector<int> Years(const Schedule &schedule) {
 
 vector<int> Courses(const Schedule &schedule) {
   auto v = Map(schedule, [](const auto &s) { return s.CourseId(); });
+  return Sorted(v);
+}
+
+vector<int> CoursesOfYear(const Schedule &schedule, int year) {
+  auto v = Map(schedule.OfYear(year), [](const auto &s) { return s.CourseId(); });
   return Sorted(v);
 }
 
@@ -165,19 +193,20 @@ AssertionResult ValidSchedule(const string &, const Schedule &schedule) {
 
 AssertionResult HasAllTeachers(const string &, const string &, const Schedule &schedule, std::vector<int> expected) {
   auto teachers = Teachers(schedule);
-  if (Sorted(expected)  == teachers) {
+  if (Sorted(expected) == teachers) {
     return AssertionSuccess();
   }
   return AssertionFailure() << "Different teachers expected: " << utility::ToString(expected) << " but was: "
                             << utility::ToString(teachers);
 }
 
-AssertionResult HasAllRooms(const string &, const string &, const Schedule &schedule, std::vector<int> expected) {
+AssertionResult HasAnyRoom(const string &, const string &, const Schedule &schedule, std::vector<int> expected) {
   auto rooms = Rooms(schedule);
-  if (Sorted(expected)  == rooms) {
+  auto common_courses_count = Intesect(Sorted(expected), rooms).size();
+  if (common_courses_count > 0 && common_courses_count <= expected.size()) {
     return AssertionSuccess();
   }
-  return AssertionFailure() << "Different rooms expected" << expected << " but was: "
+  return AssertionFailure() << "Different room number expected" << expected << " but was: "
                             << rooms;
 }
 
@@ -192,7 +221,21 @@ AssertionResult HasAllYears(const string &, const string &, const Schedule &sche
 
 AssertionResult HasAllCourses(const string &, const string &, const Schedule &schedule, std::vector<int> expected) {
   auto courses = Courses(schedule);
-  if (Sorted(expected)  == courses) {
+  if (Sorted(expected) == courses) {
+    return AssertionSuccess();
+  }
+  return AssertionFailure() << "Different courses years" << expected << " but was: "
+                            << courses;
+}
+
+AssertionResult HasAllCoursesAssignedToYear(const string &,
+                                            const string &,
+                                            const string &,
+                                            const Schedule &schedule,
+                                            int year,
+                                            const set<int> &expected) {
+  auto courses = CoursesOfYear(schedule, year);
+  if (SymmetricDifference(expected, courses).size() == 0) {
     return AssertionSuccess();
   }
   return AssertionFailure() << "Different courses years" << expected << " but was: "
@@ -224,7 +267,7 @@ TEST_F(ScheduleTest, SchedulerCreatesScheduleOfSingleYear) {
   vector<int> expected_teachers{100, 200, 300};
   EXPECT_PRED_FORMAT2(HasAllTeachers, schedule, expected_teachers);
   vector<int> expected_rooms{1000};
-  EXPECT_PRED_FORMAT2(HasAllRooms, schedule, expected_rooms);
+  EXPECT_PRED_FORMAT2(HasAnyRoom, schedule, expected_rooms);
   vector<int> expected_years{1, 2};
   EXPECT_PRED_FORMAT2(HasAllYears, schedule, expected_years);
   vector<int> expected_courses{10, 20, 30, 40};
@@ -235,7 +278,7 @@ TEST_F(ScheduleTest, SchedulerCreatesScheduleOfSingleYear) {
 TEST_F(ScheduleTest, SchedulerCreatesFullSchedule) {
   unique_ptr<Scheduler> scheduler = make_unique<GreedyScheduler>();
 
-  vector<int> rooms{1000,2000,3000};
+  vector<int> rooms{1000, 2000, 3000};
   map<int, vector<int>> teachers{make_pair(100, vector<int>{10, 20}),
                                  make_pair(200, vector<int>{11, 21, 30, 40}),
                                  make_pair(300, vector<int> {32}),
@@ -255,11 +298,14 @@ TEST_F(ScheduleTest, SchedulerCreatesFullSchedule) {
   vector<int> expected_teachers{100, 200, 300, 400, 500, 600};
   EXPECT_PRED_FORMAT2(HasAllTeachers, schedule, expected_teachers);
   vector<int> expected_rooms{1000, 2000, 3000};
-  EXPECT_PRED_FORMAT2(HasAllRooms, schedule, expected_rooms);
+  EXPECT_PRED_FORMAT2(HasAnyRoom, schedule, expected_rooms);
   vector<int> expected_years{1, 2, 3, 4, 5};
   EXPECT_PRED_FORMAT2(HasAllYears, schedule, expected_years);
-  vector<int> expected_courses{10, 20,11, 21, 30, 40,32,42, 50, 60, 53, 54,77, 79, 90,70, 80, 91, 92, 93};
+  vector<int> expected_courses{10, 20, 11, 21, 30, 40, 32, 42, 50, 60, 53, 54, 77, 79, 90, 70, 80, 91, 92, 93};
   EXPECT_PRED_FORMAT2(HasAllCourses, schedule, expected_courses);
+  for (const auto &year : years) {
+    EXPECT_PRED_FORMAT3(HasAllCoursesAssignedToYear, schedule, year.first, year.second);
+  }
 
 }
 
@@ -288,7 +334,7 @@ TEST_F(ScheduleTest, SchedulerCreatesScheduleOfSingleCourseWithSeveralGroups) {
   vector<int> expected_teachers{100, 200};
   EXPECT_PRED_FORMAT2(HasAllTeachers, schedule, expected_teachers);
   vector<int> expected_rooms{1000};
-  EXPECT_PRED_FORMAT2(HasAllRooms, schedule, expected_rooms);
+  EXPECT_PRED_FORMAT2(HasAnyRoom, schedule, expected_rooms);
   vector<int> expected_years{1};
   EXPECT_PRED_FORMAT2(HasAllYears, schedule, expected_years);
   vector<int> expected_courses{10, 10, 10, 10, 10};
