@@ -2,16 +2,21 @@
 // Created by stepkaro on 09.05.17.
 //
 
-#ifndef JIMP_EXERCISES_JUWEJUWE_H
-#define JIMP_EXERCISES_JUWEJUWE_H
-
-
+#ifndef JIMP_EXERCISES_JUWE_H
+#define JIMP_EXERCISES_JUWE_H
+#include "vector"
+#include "iostream"
+#include "functional"
+#include "cstdlib"
+#include "ctime"
 
 class Student {
+    Student();
+    ~Student(){};
 public:
-    int masa;
-    int czas_picia;
-    int stala_woda;
+    double masa;
+    double czas_picia;
+    double stala_woda;
 
     friend class Plecak;
 };
@@ -19,7 +24,7 @@ public:
 class Plecak {
 public:
     Plecak(Zaopatrzenie &zaopatrzenie) : prowiant{&zaopatrzenie}{
-        pojemnosc = 20;
+        pojemnosc = 0;
     }
 
     operator Zaopatrzenie&(){
@@ -27,9 +32,10 @@ public:
     }
 
     Zaopatrzenie *prowiant;
-    int pojemnosc;
-    int ilosc_napojow;
+    int pojemnosc=0;
+    int ilosc_napojow=0;
     friend class Student;
+    std::vector <std::reference_wrapper<Zaopatrzenie>> produkty;
 };
 
 bool ChlEbac(Plecak cos, Student ktos);
@@ -44,6 +50,7 @@ public:
 };
 
 class SokPorzeczkowy : public Zaopatrzenie{
+public:
     SokPorzeczkowy(){
         alko_gr = 0;
         obj = 2;
@@ -52,6 +59,7 @@ class SokPorzeczkowy : public Zaopatrzenie{
 };
 
 class SunBites : public Zaopatrzenie{
+public:
     SunBites(){
         alko_gr = 0;
         obj = 0.5;
@@ -60,6 +68,7 @@ class SunBites : public Zaopatrzenie{
 };
 
 class Wóda : public Zaopatrzenie{
+public:
     Wóda(){
         alko_gr = 200;
         obj = 0.5;
@@ -68,6 +77,7 @@ class Wóda : public Zaopatrzenie{
 };
 
 class Piwerko : public Zaopatrzenie{
+public:
     Piwerko(){
         alko_gr = 25;
         obj = 0.5;
@@ -75,3 +85,6 @@ class Piwerko : public Zaopatrzenie{
 };
 
 #endif //JIMP_EXERCISES_JUWEJUWE_H
+
+
+#endif //JIMP_EXERCISES_JUWE_H
