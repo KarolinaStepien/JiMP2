@@ -1,5 +1,5 @@
 project(lab12)
 
 add_subdirectory_if_exists(tree)
-add_subdirectory_if_exists(time_recorder)
-add_subdirectory_if_exists(academia_student_hash)
+add_subdirectory_if_exists(timerecorder)
+add_subdirectory_if_exists(academiastudenthash)
