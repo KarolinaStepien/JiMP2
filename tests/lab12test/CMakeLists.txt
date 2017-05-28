@@ -8,7 +8,8 @@ set(TEST_LAB_NUMBER 12)
 #######################################################################
 add_gtest_with_memleak(time_recorder libtimerecorder)
 add_gtest_with_memleak(tree libtree)
-add_gtest_with_memleak(student_hash libstudenthash)
+add_gtest_with_memleak(teacher_hash libteacherhash)
+add_gtest_with_memleak(sequential_generator libsequentialgenerator)
 
 #######################################################################
 ##  ALL TESTS
@@ -17,5 +18,5 @@ add_executable(lab12_all_tests ${SOURCE_FILES})
 
 target_link_libraries(lab12_all_tests ${GTEST_LIBS})
 target_link_libraries(lab12_all_tests libtimerecorder)
-target_link_libraries(lab12_all_tests libstudenthash)
+target_link_libraries(lab12_all_tests libteacherhash)
 target_link_libraries(lab12_all_tests libmemoryleak)
