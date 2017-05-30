@@ -33,8 +33,7 @@ TEST_F(TreeTest, CanCreateTreeOfArbitraryType) {
 }
 
 TEST_F(TreeTest, CanInsertSingleValueIntoTree) {
-  Tree<int> tree;
-  tree.Insert(5);
+  Tree<int> tree {5};
   auto value = tree.Value();
   EXPECT_EQ(5, value);
   EXPECT_EQ(1, tree.Size());
@@ -42,29 +41,33 @@ TEST_F(TreeTest, CanInsertSingleValueIntoTree) {
 }
 
 TEST_F(TreeTest, CanInsertMoreValuesIntoTree) {
-  Tree<int> tree;
-  tree.Insert(5);
+  Tree<int> tree {5};
   auto value = tree.Value();
   EXPECT_EQ(5, value);
   EXPECT_EQ(1, tree.Size());
   EXPECT_EQ(1, tree.Depth());
   tree.Insert(0);
+  value = tree.Value();
   EXPECT_EQ(5, value);
   EXPECT_EQ(2, tree.Size());
   EXPECT_EQ(2, tree.Depth());
   tree.Insert(102);
+  value = tree.Value();
   EXPECT_EQ(5, value);
   EXPECT_EQ(3, tree.Size());
   EXPECT_EQ(2, tree.Depth());
   tree.Insert(890);
+  value = tree.Value();
   EXPECT_EQ(5, value);
   EXPECT_EQ(4, tree.Size());
   EXPECT_EQ(3, tree.Depth());
   tree.Insert(81);
+  value = tree.Value();
   EXPECT_EQ(5, value);
   EXPECT_EQ(5, tree.Size());
   EXPECT_EQ(3, tree.Depth());
   tree.Insert(-1);
+  value = tree.Value();
   EXPECT_EQ(5, value);
   EXPECT_EQ(6, tree.Size());
   EXPECT_EQ(3, tree.Depth());
