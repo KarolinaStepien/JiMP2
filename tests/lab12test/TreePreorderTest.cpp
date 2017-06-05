@@ -67,9 +67,9 @@ TEST_F(TreePreorderTest,PreOrderIteratorJumpsOverTreePreorder) {
   ++iterator;
   EXPECT_EQ(*iterator, -20 );
   ++iterator;
-  EXPECT_EQ(*iterator, -10);
-  ++iterator;
   EXPECT_EQ(*iterator, -90);
+  ++iterator;
+  EXPECT_EQ(*iterator, -10);
   ++iterator;
   EXPECT_EQ(*iterator, 80);
   ++iterator;
