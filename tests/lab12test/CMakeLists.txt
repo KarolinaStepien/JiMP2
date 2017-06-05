@@ -12,6 +12,7 @@ add_gtest_with_memleak(teacher_hash libteacherhash)
 add_gtest_with_memleak(sequential_generator libsequentialgenerator)
 add_gtest_with_memleak(tree_inorder libtreeiterators)
 add_gtest_with_memleak(tree_preorder libtreeiterators)
+add_gtest_with_memleak(tree_postorder libtreeiterators)
 
 #######################################################################
 ##  ALL TESTS
