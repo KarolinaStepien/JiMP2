@@ -8,6 +8,7 @@
 #include "TreeIterators.h"
 
 using ::std::vector;
+using ::std::string;
 
 using ::tree::Tree;
 using ::tree::PostOrder;
@@ -16,7 +17,7 @@ using ::tree::PostOrderTreeView;
 
 class TreePostorderTest : public ::testing::Test, MemLeakTest {
  public:
-  TreePostorderTest() : ::testing::Test(), MemLeakTest(), simple_tree(0) {
+  TreePostorderTest() : ::testing::Test(), MemLeakTest(), simple_tree(0), test_tree("Opochtli") {
     simple_tree.Insert(-20);
     simple_tree.Insert(80);
     simple_tree.Insert(10078);
@@ -24,8 +25,20 @@ class TreePostorderTest : public ::testing::Test, MemLeakTest {
     simple_tree.Insert(198341);
     simple_tree.Insert(-90);
     simple_tree.Insert(-10);
+
+    test_tree.Insert("Quetzalcoatl");
+    test_tree.Insert("Tezcatlipoca");
+    test_tree.Insert("Tlaloc");
+    test_tree.Insert("Xantico");
+    test_tree.Insert("Meztli");
+    test_tree.Insert("Centeotl");
+    test_tree.Insert("Xolotl");
+    test_tree.Insert("Citlalicue");
+    test_tree.Insert("Toci");
+    test_tree.Insert("Xiuhtecuhtli");
   }
   Tree<int> simple_tree;
+  Tree<string> test_tree;
 };
 
 TEST_F(TreePostorderTest,CanCreatePostOrderIterator) {
@@ -108,6 +121,15 @@ TEST_F(TreePostorderTest, PostOrderMethodProvidesProperOrderOfValues) {
   vector<int> expected_values_postorder {-90, -10, -20, 198341, 98341, 10078, 80, 0};
   auto expected_it = expected_values_postorder.begin();
   for (const int &value_in_tree : PostOrder(&simple_tree)) {
+    EXPECT_EQ(*expected_it, value_in_tree);
+    ++expected_it;
+  }
+}
+
+TEST_F(TreePostorderTest, PostOrderMethodProvidesProperOrderOfAtecPantheon) {
+  vector<string> expected_values_postorder {"Citlalicue", "Centeotl", "Meztli", "Toci", "Xiuhtecuhtli", "Xolotl", "Xantico", "Tlaloc", "Tezcatlipoca", "Quetzalcoatl", "Opochtli"};
+  auto expected_it = expected_values_postorder.begin();
+  for (const string &value_in_tree : PostOrder(&test_tree)) {
     EXPECT_EQ(*expected_it, value_in_tree);
     ++expected_it;
   }

@@ -8,6 +8,7 @@
 #include "TreeIterators.h"
 
 using ::std::vector;
+using ::std::string;
 
 using ::tree::Tree;
 using ::tree::PreOrder;
@@ -16,7 +17,7 @@ using ::tree::PreOrderTreeView;
 
 class TreePreorderTest : public ::testing::Test, MemLeakTest {
  public:
-  TreePreorderTest() : ::testing::Test(), MemLeakTest(), simple_tree(0) {
+  TreePreorderTest() : ::testing::Test(), MemLeakTest(), simple_tree(0), test_tree("Opochtli") {
     simple_tree.Insert(-20);
     simple_tree.Insert(80);
     simple_tree.Insert(10078);
@@ -24,8 +25,20 @@ class TreePreorderTest : public ::testing::Test, MemLeakTest {
     simple_tree.Insert(198341);
     simple_tree.Insert(-90);
     simple_tree.Insert(-10);
+
+    test_tree.Insert("Quetzalcoatl");
+    test_tree.Insert("Tezcatlipoca");
+    test_tree.Insert("Tlaloc");
+    test_tree.Insert("Xantico");
+    test_tree.Insert("Meztli");
+    test_tree.Insert("Centeotl");
+    test_tree.Insert("Xolotl");
+    test_tree.Insert("Citlalicue");
+    test_tree.Insert("Toci");
+    test_tree.Insert("Xiuhtecuhtli");
   }
   Tree<int> simple_tree;
+  Tree<string> test_tree;
 };
 
 TEST_F(TreePreorderTest,CanCreatePreOrderIterator) {
@@ -112,3 +125,13 @@ TEST_F(TreePreorderTest, PreOrderMethodProvidesProperOrderOfValues) {
     ++expected_it;
   }
 }
+
+TEST_F(TreePreorderTest, PreOrderMethodProvidesProperOrderOfAtecPantheon) {
+  vector<string> expected_values_postorder {"Opochtli", "Meztli", "Centeotl", "Citlalicue", "Quetzalcoatl", "Tezcatlipoca", "Tlaloc", "Xantico", "Toci", "Xolotl", "Xiuhtecuhtli"};
+  auto expected_it = expected_values_postorder.begin();
+  for (const string &value_in_tree : PreOrder(&test_tree)) {
+    EXPECT_EQ(*expected_it, value_in_tree);
+    ++expected_it;
+  }
+}
+
