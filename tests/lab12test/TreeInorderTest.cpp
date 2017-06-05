@@ -44,7 +44,7 @@ TEST_F(TreeInorderTest,InOrderIteratorIsDereferencable) {
   auto root = simple_tree.Root();
   InOrderTreeIterator<int> iterator = InOrderTreeIterator<int>(root);
   int value1 = *iterator;
-  EXPECT_EQ(0, value1);
+  EXPECT_EQ(-90, value1);
   ++iterator;
   int value2 = *iterator;
   //no tests EXPECT_EQ(0, value1);
@@ -63,11 +63,11 @@ TEST_F(TreeInorderTest,InOrderIteratorComparableByNotEqualOperator) {
 TEST_F(TreeInorderTest,InOrderIteratorJumpsOverTreeInorder) {
   auto root = simple_tree.Root();
   InOrderTreeIterator<int> iterator = InOrderTreeIterator<int>(root);
-  EXPECT_EQ(-10, *iterator);
+  EXPECT_EQ(-90, *iterator);
   ++iterator;
   EXPECT_EQ(-20, *iterator);
   ++iterator;
-  EXPECT_EQ(-90, *iterator);
+  EXPECT_EQ(-10, *iterator);
   ++iterator;
   EXPECT_EQ(0, *iterator);
   ++iterator;
@@ -105,7 +105,7 @@ TEST_F(TreeInorderTest, InOrderMethodMaybeUsedInContextOfFor) {
 }
 
 TEST_F(TreeInorderTest, InOrderMethodProvidesProperOrderOfValues) {
-  vector<int> expected_values_inorder {-10, -20, -90, 0, 80, 10078, 98341, 198341};
+  vector<int> expected_values_inorder {-90, -20, -10, 0, 80, 10078, 98341, 198341};
   auto expected_it = expected_values_inorder.begin();
   for (const int &value_in_tree : InOrder(&simple_tree)) {
     EXPECT_EQ(*expected_it, value_in_tree);
