@@ -1,10 +1,8 @@
 
 project(szaba)
 
-set(HEDEAR_FILES Szaba.h)
-set(SOURCE_FILES Szaba.cpp)
-set(HEDEAR_FILES SzabaTest.h)
-set(SOURCE_FILES SzabaTest.cpp)
+set(HEDEAR_FILES Szaba.h SzabaTest.h)
+set(SOURCE_FILES Szaba.cpp SzabaTest.cpp)
 
 add_library(libszaba STATIC ${SOURCE_FILES})
 target_include_directories(libszaba PUBLIC .)

@@ -5,10 +5,13 @@
 #ifndef JIMP_EXERCISES_SZABATEST_H
 #define JIMP_EXERCISES_SZABATEST_H
 
+#include "Szaba.h"
+bool EasyRomanToArabicTest();
+bool EasyArabicToRomanTest();
+bool ZeroArabicToRomanTest();
+bool NegativeArabicToRomanTest();
 
-class SzabaTest {
 
-};
 
 
 #endif //JIMP_EXERCISES_SZABATEST_H
