@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 namespace algo{
     class Algo {
