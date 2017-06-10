@@ -9,9 +9,6 @@
 using namespace std;
 
 string ArabskieNaRzymskie(long int liczba);
-
-
-
 int RzymskieNaArabskie(string zawartosc);
 
 #endif //JIMP_EXERCISES_SZABA_H

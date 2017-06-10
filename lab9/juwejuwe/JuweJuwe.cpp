@@ -2,7 +2,7 @@
 // Created by stepkaro on 09.05.17.
 //
 
-#include "Juwe.h"
+#include "JuweJuwe.h"
 
 Student::Student(){
     masa = 58;

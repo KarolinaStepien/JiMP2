@@ -1,13 +1,13 @@
 
-project(juwe)
+project(juwejuwe)
 
-set(HEDEAR_FILES Juwe.h)
-set(SOURCE_FILES Juwe.cpp)
+set(HEDEAR_FILES JuweJuwe.h)
+set(SOURCE_FILES JuweJuwe.cpp)
 
-add_library(libjuwe STATIC ${SOURCE_FILES} main.cpp)
-target_include_directories(libjuwe PUBLIC .)
+add_library(libjuwejuwe STATIC ${SOURCE_FILES} main.cpp)
+target_include_directories(libjuwejuwe PUBLIC .)
 
-add_executable(juwe ${SOURCE_FILES} main.cpp)
+add_executable(juwejuwe ${SOURCE_FILES} main.cpp)
 
-target_link_libraries(juwe libjuwe)
+target_link_libraries(juwejuwe libjuwejuwe)
 

@@ -2,7 +2,7 @@
 // Created by stepkaro on 06.06.17.
 //
 
-#include "SzabaTest.h"
+#include "RomanToArabicTest.h"
 
 bool EasyRomanToArabicTest() {
     int expected = 12;
@@ -27,5 +27,3 @@ bool NegativeArabicToRomanTest() {
     string result = ArabskieNaRzymskie(-20);
     return expected == result;
 }
-
-

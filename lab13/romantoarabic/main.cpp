@@ -2,8 +2,8 @@
 // Created by stepkaro on 06.06.17.
 //
 
-#include "Szaba.h"
-#include "SzabaTest.h"
+#include "RomanToArabic.h"
+#include "RomanToArabicTest.h"
 
 #include <string>
 #include <utility>

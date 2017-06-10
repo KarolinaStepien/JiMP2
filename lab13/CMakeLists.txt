@@ -1,3 +1,3 @@
 project(lab13)
 
-add_subdirectory_if_exists(szaba)
+add_subdirectory_if_exists(romantoarabic)
