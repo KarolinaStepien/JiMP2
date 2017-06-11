@@ -12,7 +12,7 @@ academia::SchedulingItem::SchedulingItem(int course_, int teacher_, int room_, i
     year = year_;
 }
 
-/*int academia::SchedulingItem::CourseId() const {
+int academia::SchedulingItem::CourseId() const {
     return course_id;
 }
 
@@ -30,7 +30,13 @@ int academia::SchedulingItem::TimeSlot() const{
 
 int academia::SchedulingItem::Year() const {
     return year;
-}*/
+}
+
+academia::Schedule::Schedule(std::vector<academia::SchedulingItem> item_v) {
+    for(auto &&item : item_v){
+        InsertScheduleItem(item);
+    }
+}
 
 academia::Schedule academia::Schedule::OfTeacher(int teacher_id) const {
     Schedule st;
@@ -65,6 +71,18 @@ academia::Schedule academia::Schedule::OfYear(int year) const {
     return sy;
 }
 
+std::vector<int> academia::Schedule::AvailableTimeSlots(int n_time_slots) const {
+    std::vector<int> n_slots;
+    std::vector<int> free_slots;
+    for(int i=0; i<n_time_slots; i++){
+        n_slots.emplace_back(i+1);
+    }
+    std::set_difference(n_slots.begin(), n_slots.end(),
+                        taken_time_slots.begin(), taken_time_slots.end(),
+                        std::inserter(free_slots, free_slots.begin()));
+    return free_slots;
+}
+
 void academia::Schedule::InsertScheduleItem(const academia::SchedulingItem &item) {
     SchedulingItem element = item;
     taken_time_slots.emplace_back(element.time_slot);
@@ -75,6 +93,13 @@ size_t academia::Schedule::Size() const {
     return items.size();
 }
 
-/*academia::SchedulingItem academia::Schedule::operator[](int iter) const {
+academia::SchedulingItem academia::Schedule::operator[](int iter) const {
     return items[iter];
-}*/
+}
+
+academia::Schedule academia::GreedyScheduler::PrepareNewSchedule(const std::vector<int> &rooms,
+                                                                 const std::map<int, std::vector<int>> &teacher_courses_assignment,
+                                                                 const std::map<int, std::set<int>> &courses_of_year,
+                                                                 int n_time_slots) {
+    return academia::Schedule();
+}
