@@ -2,7 +2,7 @@
 // Created by Admin on 2017-06-10.
 //
 
-#include "AcademiaScheduler.h"
+#include "Scheduler.h"
 
 academia::SchedulingItem::SchedulingItem(int course_, int teacher_, int room_, int time_, int year_){
     course_id = course_;
