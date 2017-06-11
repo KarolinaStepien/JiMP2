@@ -18,7 +18,6 @@ namespace academia {
     public:
         SchedulingItem(int course_, int teacher_, int room_, int time_, int year_);
         ~SchedulingItem(){};
-        friend class Schedule;
 
         int CourseId() const;
         int TeacherId() const;
@@ -26,7 +25,6 @@ namespace academia {
         int TimeSlot() const;
         int Year() const;
 
-    private:
         int course_id; //identyfikator kursu
         int teacher_id; //identyfikator nauczyciela
         int room_id; //identyfikator pomieszczenia
@@ -50,7 +48,6 @@ namespace academia {
 
         SchedulingItem operator[](int iter) const;
 
-    private:
         std::vector<SchedulingItem> items;
         std::vector<int> taken_time_slots;
     };

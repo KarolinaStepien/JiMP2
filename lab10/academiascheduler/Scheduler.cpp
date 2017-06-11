@@ -41,7 +41,7 @@ academia::Schedule::Schedule(std::vector<academia::SchedulingItem> item_v) {
 academia::Schedule academia::Schedule::OfTeacher(int teacher_id) const {
     Schedule st;
 
-    for(int i=0; i<items.size(), i++){
+    for(int i=0; i<items.size(); i++){
         if(teacher_id == items[i].teacher_id){
             st.items.emplace_back(items[i]);
         }
@@ -52,7 +52,7 @@ academia::Schedule academia::Schedule::OfTeacher(int teacher_id) const {
 academia::Schedule academia::Schedule::OfRoom(int room_id) const {
     Schedule sr;
 
-    for(int i=0; i<items.size(), i++){
+    for(int i=0; i<items.size(); i++){
         if(room_id == items[i].room_id){
             sr.items.emplace_back(items[i]);
         }
@@ -63,7 +63,7 @@ academia::Schedule academia::Schedule::OfRoom(int room_id) const {
 academia::Schedule academia::Schedule::OfYear(int year) const {
     Schedule sy;
 
-    for(int i=0; i<items.size(), i++){
+    for(int i=0; i<items.size(); i++){
         if(year == items[i].year){
             sy.items.emplace_back(items[i]);
         }
@@ -101,5 +101,35 @@ academia::Schedule academia::GreedyScheduler::PrepareNewSchedule(const std::vect
                                                                  const std::map<int, std::vector<int>> &teacher_courses_assignment,
                                                                  const std::map<int, std::set<int>> &courses_of_year,
                                                                  int n_time_slots) {
-    return academia::Schedule();
+    for (auto crs: courses_of_year) {
+        if ((crs.second.size() >= n_time_slots)) {
+            throw NoViableSolutionFound();
+        }
+    }
+    for (auto crs: teacher_courses_assignment) {
+        if ((crs.second.size() >= n_time_slots)) {
+            throw NoViableSolutionFound();
+        }
+    }
+
+    Schedule final{};
+
+    int time=0;
+    int room = 0;
+
+    for (auto teacher_course_pair : teacher_courses_assignment) {
+        for(auto teacher_course : teacher_course_pair.second) {
+            for (auto year_courses_pair : courses_of_year) {
+                for (auto course : year_courses_pair.second) {
+                    if (teacher_course == course ) {
+                        final.InsertScheduleItem(SchedulingItem{course, teacher_course_pair.first, rooms[room], time, year_courses_pair.first});
+                        room++;
+                        time++;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return final;
 }
