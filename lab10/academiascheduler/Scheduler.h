@@ -5,12 +5,10 @@
 #ifndef JIMP_EXERCISES_ACADEMIASCHEDULER_H
 #define JIMP_EXERCISES_ACADEMIASCHEDULER_H
 
-//#include <iostream>
 #include <vector>
 #include <map>
 #include <set>
 #include <algorithm>
-//#include <string>
 
 namespace academia {
 
