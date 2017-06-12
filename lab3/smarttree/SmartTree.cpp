@@ -63,7 +63,6 @@ namespace datastructures{
 
     /* unique_ptr <SmartTree> RestoreTree(const string &tree){
          for (iterator it = tree.begin(); it != tree.end(); ++it){
-
          }
      }*/
 }
