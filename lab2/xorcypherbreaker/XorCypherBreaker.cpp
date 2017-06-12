@@ -4,8 +4,7 @@
 
 #include "XorCypherBreaker.h"
 
-string XorCypherBreaker(const vector<char> &cryptogram,
-                        int key_length,
+string XorCypherBreaker(const vector<char> &cryptogram, int key_length,
                         const vector<string> &dictionary) {
     int counter_max = -10, counter = 0; // sprawdzi przy którym kluczu najwiecej słów pasuje
     string key_word = "", key_tmp = "   ";
