@@ -7,7 +7,6 @@
 
 nets::JsonValue::JsonValue(int costam) {
     liczba = costam;
-
 }
 
 nets::JsonValue::JsonValue(double costam) {
@@ -33,7 +32,6 @@ nets::JsonValue::JsonValue(std::map<std::string, nets::JsonValue> costam) {
 nets::JsonValue::~JsonValue() {
     cout << "Do widzenia.";
 }
-
 
 std::string nets::JsonValue::ToString() const {
     if (liczba){
@@ -68,9 +66,7 @@ std::string nets::JsonValue::ToString() const {
         mapka[mapka.size()-2]='}';
         mapka.pop_back();
         return mapka;
-
     }
-
 }
 
 std::experimental::optional<nets::JsonValue> nets::JsonValue::ValueByName(const std::string &name) const {

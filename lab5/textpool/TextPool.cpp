@@ -3,6 +3,7 @@
 //
 
 #include "TextPool.h"
+
 namespace pool {
 
     TextPool::TextPool(initializer_list<string> basen) {
@@ -19,10 +20,8 @@ namespace pool {
         if (this == &nowy) {
             return nowy;
         }
-
         basen.clear();
         swap(basen, nowy.basen);
-
     }
 
     TextPool::~TextPool() {
@@ -38,16 +37,13 @@ namespace pool {
                 return *it;
             }
         }
-        if (dodaj == true){
+        if (dodaj){
             basen.insert(str);
             return str;
         }
-
     }
 
     size_t TextPool::StoredStringCount() const {
         return basen.size();
     }
-
-
 }

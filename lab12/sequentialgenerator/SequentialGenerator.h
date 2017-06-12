@@ -31,6 +31,4 @@ public:
     }
 };
 
-
-
 #endif //JIMP_EXERCISES_SEQUENTIALGENERATOR_H

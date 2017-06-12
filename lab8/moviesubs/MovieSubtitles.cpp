@@ -59,19 +59,15 @@ namespace moviesubs {
     }
 
     MicroDvdSubtitles::~MicroDvdSubtitles() {}
-
-
+    
     void MovieSubtitles::ShiftAllSubtitlesBy(int delay, int fps, stringstream *in, stringstream *out) {
-
     }
-
-
+    
     NegativeFrameAfterShift::NegativeFrameAfterShift() : PotatoException("NegativeFrameAfterShift") {}
     InvalidSubtitleLineFormat::InvalidSubtitleLineFormat() : PotatoException("InvalidSubtitleLineFormat") {}
     MissingTimeSpecification::MissingTimeSpecification() : PotatoException("MissingTimeSpecification") {}
     OutOfOrderFrames::OutOfOrderFrames() : PotatoException("OutOfOrderFrames") {}
-
-
+    
     SubtitleEndBeforeStart::SubtitleEndBeforeStart(int line_num, string line) : PotatoException ("At line " + std::to_string(line_num) + ": " + line) {
         this->line_number=line_num;
     }

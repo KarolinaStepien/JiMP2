@@ -55,7 +55,6 @@ public:
         alko_gr = 0;
         obj = 2;
     }
-
 };
 
 class SunBites : public Zaopatrzenie{
@@ -64,7 +63,6 @@ public:
         alko_gr = 0;
         obj = 0.5;
     }
-
 };
 
 class Wóda : public Zaopatrzenie{
@@ -73,7 +71,6 @@ public:
         alko_gr = 200;
         obj = 0.5;
     }
-
 };
 
 class Piwerko : public Zaopatrzenie{
@@ -85,6 +82,4 @@ public:
 };
 
 #endif //JIMP_EXERCISES_JUWEJUWE_H
-
-
 #endif //JIMP_EXERCISES_JUWE_H

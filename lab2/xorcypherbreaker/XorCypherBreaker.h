@@ -10,6 +10,7 @@
 #include <algorithm>
 
 using namespace std;
+
 string XorCypherBreaker(const vector<char> &cryptogram,
                         int key_length,
                         const vector<string> &dictionary);

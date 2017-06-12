@@ -10,8 +10,6 @@ Student::Student(){
     stala_woda = 0.58;
 }
 
-
-
 bool ChlEbac(Plecak cos, Student ktos) {
     double ebac;
     ebac = ((9.672*cos.ilosc_napojow)/(ktos.stala_woda*ktos.masa))-0.17*ktos.czas_picia;
@@ -51,9 +49,6 @@ void Zakupy(Plecak cos, Student Zosia) {
             }
             else cos.ilosc_napojow -= (żubr.alko_gr/10);
         }
-
     }
-
-
 }
 

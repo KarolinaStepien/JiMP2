@@ -13,12 +13,9 @@
 #include <experimental/optional>
 #include <string>
 
+using namespace std;
+
 namespace nets{
-
-
-
-    using namespace std;
-
 
     class JsonValue {
         experimental::optional<int> liczba;
@@ -29,7 +26,6 @@ namespace nets{
         map<string, JsonValue> mapa;
 
     public:
-
         JsonValue(int costam);
         JsonValue(double costam);
         JsonValue(string costam);
@@ -39,8 +35,7 @@ namespace nets{
         ~JsonValue();
         string ToString() const;
         experimental::optional<JsonValue> ValueByName(const std::string &name) const;
-
     };
-
 }
+
 #endif //JIMP_EXERCISES_SIMPLEJSON_H

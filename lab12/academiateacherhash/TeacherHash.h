@@ -36,7 +36,4 @@ namespace academia{
     };
 }
 
-
-
-
 #endif //JIMP_EXERCISES_TEACHERHASH_H

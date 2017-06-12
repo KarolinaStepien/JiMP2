@@ -20,7 +20,6 @@ string XorCypherBreaker(const vector<char> &cryptogram,
                 key_tmp[2] = (char)(k);
                 string word = "";
 
-
                 for (int m :  cryptogram) { //zmienna iterujaca po wektorze z kryptogramem
                     char letter = (char) (key_tmp[l % key_length] xor m); //stosujemy tymczasowy klucz
 
@@ -35,23 +34,16 @@ string XorCypherBreaker(const vector<char> &cryptogram,
                             }
                         }
                         word = "";
-
-
                     }
-
-
                     l++;
                 }
                 if (counter >= counter_max) {
                     counter_max = counter;
                     key_word = key_tmp;
-
                 }
                 counter =0;
             }
         }
-
     }
-
     return key_word;
 }
