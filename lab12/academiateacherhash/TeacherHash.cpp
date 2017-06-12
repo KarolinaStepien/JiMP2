@@ -23,7 +23,6 @@ namespace academia{
         return department_;
     }
 
-
     bool operator==(const Teacher &teacher1, const Teacher &teacher2) {
         return teacher1.Department() == teacher2.Department() && teacher1.IntId() == teacher2.IntId() && teacher1.Name() == teacher2.Name();
     }

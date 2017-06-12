@@ -24,7 +24,7 @@ public:
             first_=false;
             return int(id_);
         }
-        else{
+        else {
             ++id_;
             return int(id_);
         }
