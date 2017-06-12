@@ -29,7 +29,7 @@ namespace pool {
     }
 
     std::experimental::string_view TextPool::Intern(const std::string &str) {
-        
+
         bool dodaj = true;
         for (auto it = basen.begin(); it != basen.end(); ++it){
             if (*it == str){
