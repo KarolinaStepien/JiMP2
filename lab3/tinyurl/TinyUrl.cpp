@@ -6,8 +6,7 @@
 
 namespace tinyurl{
 
-    void NextHash(std::array<char, 6> *state)
-    {
+    void NextHash(std::array<char, 6> *state) {
         int it[6];
         for(int i=0;i<6;i++) {
             it[i] = (*state)[i];
