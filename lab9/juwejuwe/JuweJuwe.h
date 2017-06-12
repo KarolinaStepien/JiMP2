@@ -4,6 +4,7 @@
 
 #ifndef JIMP_EXERCISES_JUWE_H
 #define JIMP_EXERCISES_JUWE_H
+
 #include "vector"
 #include "iostream"
 #include "functional"
