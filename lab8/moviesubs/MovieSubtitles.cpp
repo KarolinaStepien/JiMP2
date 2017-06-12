@@ -39,7 +39,7 @@ namespace moviesubs {
         }
 
         if(end < start) throw SubtitleEndBeforeStart(line, text);
-        
+
         for (string::iterator i = subs.begin(); i < subs.end(); i++) {
             if (*i == '{' && isdigit(*(i + 1))) {
                 tmp = "";
