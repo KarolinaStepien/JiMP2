@@ -20,7 +20,7 @@ bool ChlEbac(Plecak cos, Student ktos) {
     return ebac < 0.2;
 }
 
-void Zakupy(Plecak cos, Student Zosia) {
+void Zakupy(Plecak &cos, Student &Zosia) {
     srand(time(NULL));
 
     while (cos.pojemnosc < 20){
@@ -61,6 +61,7 @@ void Zakupy(Plecak cos, Student Zosia) {
         }
 
     }
+
 
 
 }
