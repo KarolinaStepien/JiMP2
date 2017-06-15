@@ -23,6 +23,7 @@ public:
 
 
 
+
 class Zaopatrzenie{
 public:
     double alko_gr;
@@ -43,12 +44,16 @@ public:
     double ilosc_napojow=0;
     friend class Student;
     std::vector <Zaopatrzenie> produkty;
+    void PokazPlecak(){
+            std::cout<<pojemnosc<<"  "<<ilosc_napojow<<std::endl;
+
+    }
 
 };
 
 bool ChlEbac(Plecak cos, Student ktos);
 
-void Zakupy (Plecak cos, Student ktos);
+void Zakupy (Plecak &cos, Student &ktos);
 
 
 
